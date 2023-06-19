@@ -21,6 +21,8 @@
             <option value="2">Semester 2</option>
             <option value="3">Semester 3</option>
             <option value="4">Semester 4</option>
+            <option value="5">Semester 4</option>
+            <option value="6">Semester sd4</option>
         </select>
     </form>
 <?php
