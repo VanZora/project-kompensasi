@@ -3,6 +3,9 @@
     if(@$_GET['page']=='dashboard'){
         include "dashboard.php";
     }
+    else if(@$_GET['page']=='detail'){
+        include "detail.php";
+    }
     else if(@$_GET['page']=='kompensasi'){
         include "kompensasi.php";
     }
