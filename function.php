@@ -70,7 +70,7 @@ function atur_kegiatan($data)
         }
 
         $jamtotal = $jamtotal * 2;
-        mysqli_query($conn, "insert into mhs_kompen values('', '$kode', '$nim', '$jamtotal', '$pengawas', 'Belum Selesai', '-', '-')");
+        mysqli_query($conn, "insert into mhs_kompen values('', '$kode', '$nim', '$jamtotal', '$pengawas', '-', '-')");
 
         $hari = $jamtotal / 24;
         for ($i = 0; $i < $hari; $i++) {

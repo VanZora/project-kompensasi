@@ -30,7 +30,7 @@ include 'header.php'; ?>
         $semester = $_GET['smt'];
         $kelas = $_GET['kls'];
 
-        $data = mysqli_query($conn, "select mahasiswa.nim, mahasiswa.nama, kode_kompen, jml_jam, progress from mhs_kompen INNER JOIN mahasiswa ON mhs_kompen.nim_mhs = mahasiswa.nim where mahasiswa.semester='$semester' and mahasiswa.kelas='$kelas'");
+        $data = mysqli_query($conn, "select mahasiswa.nim, mahasiswa.nama, kode_kompen, jml_jam from mhs_kompen INNER JOIN mahasiswa ON mhs_kompen.nim_mhs = mahasiswa.nim where mahasiswa.semester='$semester' and mahasiswa.kelas='$kelas'");
 
         while ($row = mysqli_fetch_array($data)) {
 
@@ -39,7 +39,6 @@ include 'header.php'; ?>
             $data2 = mysqli_query($conn, "select * from mhs_kegiatan where kode_kompen='$kode_kompen' and nim_mhs='$nim' and tuntas='belum'");
         ?>
             <tr>
-                <td><?php echo $row['nim']; ?></td>
                 <td><?php echo $row['nama']; ?></td>
                 <td><?php echo $row['jml_jam']; ?></td>
                 <td><?php if (mysqli_num_rows($data2) >= 1) {

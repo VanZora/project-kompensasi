@@ -46,9 +46,9 @@ include 'header.php'; ?>
             $data4 = mysqli_query($conn, "select count(ket) as sakit from logabsen where ket='Sakit' and nim_mhs='$nim' and semester='$semester'");
         }
         else{
-            $data2 = mysqli_query($conn, "select count(ket) as alfa from logabsen where ket='Alfa' and nim_mhs='$nim'");
-            $data3 = mysqli_query($conn, "select count(ket) as izin from logabsen where ket='Izin' and nim_mhs='$nim'");
-            $data4 = mysqli_query($conn, "select count(ket) as sakit from logabsen where ket='Sakit' and nim_mhs='$nim'");
+            $data2 = mysqli_query($conn, "select count(ket) as alfa from logabsen where ket='Alfa' and nim_mhs='$nim' and semester='$semester'");
+            $data3 = mysqli_query($conn, "select count(ket) as izin from logabsen where ket='Izin' and nim_mhs='$nim' and semester='$semester'");
+            $data4 = mysqli_query($conn, "select count(ket) as sakit from logabsen where ket='Sakit' and nim_mhs='$nim' and semester='$semester'");
         
         }
 
@@ -77,7 +77,7 @@ include 'header.php'; ?>
             <tr>
                 <td>
                     <?php
-                    $dataDet = mysqli_query($conn, "select * from logabsen where ket='Alfa' and nim_mhs='$nim'");
+                    $dataDet = mysqli_query($conn, "select * from logabsen where ket='Alfa' and nim_mhs='$nim' and semester='$semester'");
                     while ($row2 = mysqli_fetch_array($dataDet)) { ?>
 
                         <p>Pertemuan ke <?php echo $row2['pertemuan']; ?> tanggal <?php echo $row2['tanggal']; ?></p>
@@ -85,7 +85,7 @@ include 'header.php'; ?>
                 </td>
                 <td>
                     <?php
-                    $dataDet = mysqli_query($conn, "select * from logabsen where ket='Izin' and nim_mhs='$nim'");
+                    $dataDet = mysqli_query($conn, "select * from logabsen where ket='Izin' and nim_mhs='$nim' and semester='$semester'");
                     while ($row2 = mysqli_fetch_array($dataDet)) { ?>
 
                         <p>Pertemuan ke <?php echo $row2['pertemuan']; ?> tanggal <?php echo $row2['tanggal']; ?></p>
@@ -93,7 +93,7 @@ include 'header.php'; ?>
                 </td>
                 <td>
                     <?php
-                    $dataDet = mysqli_query($conn, "select * from logabsen where ket='Sakit' and nim_mhs='$nim'");
+                    $dataDet = mysqli_query($conn, "select * from logabsen where ket='Sakit' and nim_mhs='$nim' and semester='$semester'");
                     while ($row2 = mysqli_fetch_array($dataDet)) { ?>
 
                         <p>Pertemuan ke <?php echo $row2['pertemuan']; ?> tanggal <?php echo $row2['tanggal']; ?></p>

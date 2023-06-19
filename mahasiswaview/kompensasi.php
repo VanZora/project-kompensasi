@@ -26,7 +26,7 @@ include 'header.php'; ?>
         include '../function.php';
         session_start();
         $user = $_SESSION['user'];
-        $data = mysqli_query($conn, "select kode_kompen, jml_jam, pengawas.nama, progress, v_pengawas, v_aprodi from 
+        $data = mysqli_query($conn, "select kode_kompen, jml_jam, pengawas.nama, v_pengawas, v_aprodi from 
         mhs_kompen INNER JOIN pengawas ON mhs_kompen.nik_pengawas = pengawas.nik where nim_mhs='$user'");
 
 

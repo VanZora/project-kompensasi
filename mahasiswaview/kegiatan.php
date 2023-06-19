@@ -39,7 +39,6 @@ if (isset($_POST["atur"])) {
             $input = 0;
             while ($row = mysqli_fetch_array($data)) { ?>
                 <tr>
-
                     <td><input name="<?php echo 'kegiatan'.strval($input); ?>" type="text" value="<?php echo $row['kegiatan']; ?>"></td>
                     <td><input name="<?php echo 'tuntas'.strval($input); ?>" type="checkbox" <?php if($row['tuntas']=="ya"){echo "checked";} ?>></td>
                 </tr>
