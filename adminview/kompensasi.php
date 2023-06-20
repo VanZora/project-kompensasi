@@ -4,7 +4,7 @@ include 'header.php';
 require '../function.php';
 if (isset($_POST["kode_kompen"])) {
 
-    if (deletekompen($_POST) > 0) {
+    if (deleteKompen($_POST) > 0) {
         header("location:?page=kompensasi");
     } else {
         echo mysqli_error($conn);

@@ -81,7 +81,7 @@ function atur_kegiatan($data)
     return mysqli_affected_rows($conn);
 }
 
-function deletekompen($data)
+function deleteKompen($data)
 {
     global $conn;
 
@@ -91,7 +91,7 @@ function deletekompen($data)
     return mysqli_affected_rows($conn);
 }
 
-function ubahkegiatan($data)
+function ubahKegiatan($data)
 {
     global $conn;
 
@@ -111,6 +111,18 @@ function ubahkegiatan($data)
         mysqli_query($conn, "update mhs_kegiatan set kegiatan='$kegiatan', tuntas='$tuntas' where id='$id'");
         $input++;
     }
+
+    return mysqli_affected_rows($conn);
+}
+
+function validasiPengawas($data)
+{
+    global $conn;
+
+    $nim = $data['nim'];
+    $kode_kompen = $data['kd'];
+
+    mysqli_query($conn, "update mhs_kompen set v_pengawas='ACC' where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
 
     return mysqli_affected_rows($conn);
 }

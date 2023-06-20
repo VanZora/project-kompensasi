@@ -2,9 +2,9 @@
 include 'header.php';
 
 require '../function.php';
-if (isset($_POST["atur"])) {
+if (isset($_POST["acc"])) {
 
-    if (ubahKegiatan($_POST) > 0) {
+    if (validasiPengawas($_POST) > 0) {
         echo "<script>
                     alert('Berhasil Disimpan');
                     </script>";
@@ -32,28 +32,30 @@ if (isset($_POST["atur"])) {
             </tr>
 
             <?php
-            $nim = $_GET['usr'];
+            $nim = $_GET['nim'];
             $kode_kompen = $_GET['kd'];
 
             $data = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
             $input = 0;
             while ($row = mysqli_fetch_array($data)) { ?>
                 <tr>
-                    <td><input name="<?php echo 'kegiatan' . strval($input); ?>" type="text" value="<?php echo $row['kegiatan']; ?>"></td>
+                    <td><input name="<?php echo 'kegiatan' . strval($input); ?>" type="text" value="<?php echo $row['kegiatan']; ?>" readonly></td>
                     <td><input name="<?php echo 'tuntas' . strval($input); ?>" type="checkbox" <?php if ($row['tuntas'] == "ya") {
                                                                                                     echo "checked";
-                                                                                                } ?>></td>
+                                                                                                } ?> disabled></td>
                 </tr>
-
             <?php $input++;
             } ?>
         </table>
 
-        <input type="hidden" name="usr" value="<?php echo $nim; ?>">
+        <input type="hidden" name="nim" value="<?php echo $nim; ?>">
         <input type="hidden" name="kd" value="<?php echo $kode_kompen; ?>">
-        
+
+        <?php 
+        $data = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$nim' and kode_kompen='$kode_kompen'")
+        ?>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <input type="submit" name="atur" value="Simpan" class="btn btn-secondary" type="button">
+            <input type="submit" name="acc" value="Validasi Pengawas" class="btn btn-secondary" type="button">
             <a href="?page=jadwalpage" class="btn btn-outline-secondary"> Kembali</a>
         </div>
     </form>
