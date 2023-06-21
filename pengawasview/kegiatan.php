@@ -2,16 +2,22 @@
 include 'header.php';
 
 require '../function.php';
+$pesan = "<script> alert('Berhasil Disimpan'); </script>";
 if (isset($_POST["acc"])) {
 
     if (validasiPengawas($_POST) > 0) {
-        echo "<script>
-                    alert('Berhasil Disimpan');
-                    </script>";
-    } else {
+        echo $pesan;
+    } else
         echo mysqli_error($conn);
-    }
 }
+if (isset($_POST["cancel"])) {
+
+    if (cancelPengawas($_POST) > 0) {
+        echo $pesan;
+    } else
+        echo mysqli_error($conn);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,15 +53,24 @@ if (isset($_POST["acc"])) {
             <?php $input++;
             } ?>
         </table>
-
+        <?php
+            $data = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
+            $row = mysqli_fetch_assoc($data);
+            $ket = "Validasi Pengawas";
+            $valid = "acc";
+            if($row['v_pengawas']=="ACC"){
+                $ket = "Batalkan Validasi";
+                $valid = "cancel";
+            }
+        ?>
         <input type="hidden" name="nim" value="<?php echo $nim; ?>">
         <input type="hidden" name="kd" value="<?php echo $kode_kompen; ?>">
 
-        <?php 
+        <?php
         $data = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$nim' and kode_kompen='$kode_kompen'")
         ?>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <input type="submit" name="acc" value="Validasi Pengawas" class="btn btn-secondary" type="button">
+            <input type="submit" name="<?php echo $valid; ?>" value="<?php echo $ket; ?>" class="btn btn-secondary" type="button">
             <a href="?page=jadwalpage" class="btn btn-outline-secondary"> Kembali</a>
         </div>
     </form>

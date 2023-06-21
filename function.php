@@ -126,3 +126,20 @@ function validasiPengawas($data)
 
     return mysqli_affected_rows($conn);
 }
+
+function cancelPengawas($data)
+{
+    global $conn;
+
+    $nim = $data['nim'];
+    $kode_kompen = $data['kd'];
+
+    mysqli_query($conn, "update mhs_kompen set v_pengawas='-' where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
+
+    return mysqli_affected_rows($conn);
+}
+
+function validasiAdmin($data)
+{
+    
+}

@@ -20,6 +20,7 @@ include 'header.php'; ?>
 
     <table class="table table-striped table-bordered border-dark-subtle">
         <tr>
+            <td>KODE</td>
             <td>SEMESTER</td>
             <td>KELAS</td>
             <td>JUMLAH MAHASISWA</td>
@@ -38,6 +39,7 @@ include 'header.php'; ?>
 
         while ($row = mysqli_fetch_array($data)) { ?>
             <tr>
+                <td><?php echo $row['kode_kompen']; ?></td>
                 <td><?php echo $row['semester']; ?></td>
                 <td><?php echo $row['kelas']; ?></td>
                 <td><?php echo $row['jml_mhs']; ?></td>
@@ -45,7 +47,7 @@ include 'header.php'; ?>
                 <td><?php echo $row['tanggal']; ?></td>
                 <td><?php echo $row['waktu']; ?></td>
                 <td><?php echo $row['progress']; ?></td>
-                <td><a href="?page=list&smt=<?php echo $row['semester']; ?>&kls=<?php echo $row['kelas']; ?>" class="btn btn-warning btn-sm">List Mahasiswa</a></td>
+                <td><a href="?page=list&kd=<?php echo $row['kode_kompen']; ?>" class="btn btn-warning btn-sm">List Mahasiswa</a></td>
             </tr>
         <?php } ?>
     </table>

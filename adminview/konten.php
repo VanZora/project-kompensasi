@@ -15,6 +15,9 @@
     else if(@$_GET['page']=='tambah_kegiatan'){
         include "tambah_kegiatan.php";
     }
+    else if(@$_GET['page']=='progress'){
+        include "progress.php";
+    }
 
     else {
         include "dashboard.php";

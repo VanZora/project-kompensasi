@@ -18,6 +18,15 @@ include 'header.php'; ?>
 
 <body>
 
+    <?php 
+        include '../function.php';
+        $kode_kompen = $_GET['kd'];
+
+        $pengawas = mysqli_query($conn, "select pengawas.nik, pengawas.nama, kode_kompen from tgs_pengawas INNER JOIN pengawas ON tgs_pengawas.nik_pengawas = pengawas.nik where tgs_pengawas.kode_kompen='$kode_kompen'");
+        $rowz = mysqli_fetch_assoc($pengawas);
+    ?>
+
+    <h1><?php echo $rowz['nama']; ?></h1>
     <table class="table table-striped table-bordered border-dark-subtle">
         <tr>
             <td>NAMA</td>
@@ -26,8 +35,8 @@ include 'header.php'; ?>
         </tr>
 
         <?php
-        include '../function.php';
-        $kode_kompen = $_GET['kd'];
+        
+        
 
         $data = mysqli_query($conn, "select mahasiswa.nim, mahasiswa.nama, kode_kompen, jml_jam from mhs_kompen INNER JOIN mahasiswa ON mhs_kompen.nim_mhs = mahasiswa.nim where mhs_kompen.kode_kompen='$kode_kompen'");
 

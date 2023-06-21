@@ -4,11 +4,10 @@ include 'header.php';
 require '../function.php';
 if (isset($_POST["kode_kompen"])) {
 
-    if (deleteKompen($_POST) > 0) {
+    if (deleteKompen($_POST) > 0)
         header("location:?page=kompensasi");
-    } else {
+    else
         echo mysqli_error($conn);
-    }
 }
 ?>
 
@@ -51,12 +50,13 @@ if (isset($_POST["kode_kompen"])) {
                     <td><?php echo $row['tempat']; ?></td>
                     <td><?php echo $row['tanggal']; ?></td>
                     <td><?php echo $row['waktu']; ?></td>
-                    <td><?php echo $row['progress']; ?></td>
+                    <td><a href="?page=progress&kd=<?php echo $row['kode_kompen']; ?>"><?php echo $row['progress']; ?> </a></td>
+                </td>
                     <td><span>
-                        <input type="hidden" name="kode" value="<?php echo $row['kode_kompen']; ?>">
-                        <button name="kode_kompen" type="submit" class="btn btn-danger">
-                            <i class="bx bx-trash"></i>
-                        </button></span></td>
+                            <input type="hidden" name="kode" value="<?php echo $row['kode_kompen']; ?>">
+                            <button name="kode_kompen" type="submit" class="btn btn-danger">
+                                <i class="bx bx-trash"></i>
+                            </button></span></td>
 
                 </tr>
             </form>
