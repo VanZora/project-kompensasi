@@ -70,7 +70,7 @@ if (isset($_POST["cancel"])) {
         $data = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$nim' and kode_kompen='$kode_kompen'")
         ?>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <input type="submit" name="<?php echo $valid; ?>" value="<?php echo $ket; ?>" class="btn btn-secondary" type="button">
+            <input type="submit" name="<?php echo $valid; ?>" value="<?php echo $ket; ?>" class="btn btn-secondary">
             <a href="?page=jadwalpage" class="btn btn-outline-secondary"> Kembali</a>
         </div>
     </form>

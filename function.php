@@ -36,6 +36,22 @@ function registrasi($data)
     return mysqli_affected_rows($conn);
 }
 
+function kehadiran($data)
+{
+    global $conn;
+
+    $nim = $data['nim'];
+    $semester = $data['semester'];
+    $nm_matkul = $data['matkul'];
+    $tanggal = $data['tanggal'];
+    $pertemuan = $data['pertemuan'];
+    $keterangan = $data['keterangan'];
+
+    mysqli_query($conn, "insert into logabsen values('', '$nim', '$semester', '$nm_matkul', '$tanggal', '$pertemuan', '$keterangan')");
+
+    return mysqli_affected_rows($conn);
+}
+
 function atur_kegiatan($data)
 {
     global $conn;
@@ -141,5 +157,22 @@ function cancelPengawas($data)
 
 function validasiAdmin($data)
 {
-    
+    global $conn;
+
+    $kode_kompen = $data['kd'];
+
+    mysqli_query($conn, "update mhs_kompen set v_aprodi='ACC' where kode_kompen='$kode_kompen'");
+
+    return mysqli_affected_rows($conn);
+}
+
+function cancelAdmin($data)
+{
+    global $conn;
+
+    $kode_kompen = $data['kd'];
+
+    mysqli_query($conn, "update mhs_kompen set v_aprodi='-' where kode_kompen='$kode_kompen'");
+
+    return mysqli_affected_rows($conn);
 }

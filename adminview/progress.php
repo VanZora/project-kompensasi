@@ -1,5 +1,22 @@
 <?php $page = "dashboard";
-include 'header.php'; ?>
+include 'header.php'; 
+include '../function.php';
+$pesan = "<script> alert('Berhasil Disimpan'); </script>";
+if (isset($_POST["acc"])) {
+
+    if (validasiAdmin($_POST) > 0) {
+        echo $pesan;
+    } else
+        echo mysqli_error($conn);
+}
+if (isset($_POST["cancel"])) {
+
+    if (cancelAdmin($_POST) > 0) {
+        echo $pesan;
+    } else
+        echo mysqli_error($conn);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,15 +35,28 @@ include 'header.php'; ?>
 
 <body>
 
-    <?php 
-        include '../function.php';
-        $kode_kompen = $_GET['kd'];
+    <?php
+    $kode_kompen = $_GET['kd'];
 
-        $pengawas = mysqli_query($conn, "select pengawas.nik, pengawas.nama, kode_kompen from tgs_pengawas INNER JOIN pengawas ON tgs_pengawas.nik_pengawas = pengawas.nik where tgs_pengawas.kode_kompen='$kode_kompen'");
-        $rowz = mysqli_fetch_assoc($pengawas);
+    $pengawas = mysqli_query($conn, "select pengawas.nik, pengawas.nama, kode_kompen from tgs_pengawas INNER JOIN pengawas ON tgs_pengawas.nik_pengawas = pengawas.nik where tgs_pengawas.kode_kompen='$kode_kompen'");
+    $mahasiswa = mysqli_query($conn, "select distinct v_aprodi from mhs_kompen where kode_kompen='$kode_kompen'");
+    
+    $rowz = mysqli_fetch_assoc($pengawas);
+    $rowx = mysqli_fetch_assoc($mahasiswa);
+
+    $ket = "Validasi Admin Prodi";
+    $valid = "acc";
+    if ($rowx['v_aprodi'] == "ACC") {
+        $ket = "Batalkan Validasi";
+        $valid = "cancel";
+    }
     ?>
 
     <h1><?php echo $rowz['nama']; ?></h1>
+    <form action="" method="post">
+        <input type="hidden" name="kd" value="<?php echo $rowz['kode_kompen']; ?>">
+        <input type="submit" name="<?php echo $valid; ?>" value="<?php echo $ket; ?>" class="btn btn-secondary">
+    </form>
     <table class="table table-striped table-bordered border-dark-subtle">
         <tr>
             <td>NAMA</td>
@@ -35,8 +65,8 @@ include 'header.php'; ?>
         </tr>
 
         <?php
-        
-        
+
+
 
         $data = mysqli_query($conn, "select mahasiswa.nim, mahasiswa.nama, kode_kompen, jml_jam from mhs_kompen INNER JOIN mahasiswa ON mhs_kompen.nim_mhs = mahasiswa.nim where mhs_kompen.kode_kompen='$kode_kompen'");
 

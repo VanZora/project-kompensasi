@@ -1,4 +1,9 @@
-<?php $page = "dashboard"; include 'header.php'; ?>
+<?php $page = "dashboard"; 
+include 'header.php'; 
+// if(array_key_exists('cetak', $_POST)) {
+//     cetak();
+// } untuk memanggil fungsi lewat button
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +19,7 @@
     </style>
 </head>
 <body>
+    <a href="suratkompensasi.php" target="_blank" id="somebutton">Cetak</a>
     <form id="inputan" action="" method="post">
         <select name="semester" id="semester" onchange="submitForm()">
         <option selected values="">Pilih semester</option>
@@ -29,7 +35,7 @@
     $user = $_SESSION["user"];
     $data = mysqli_query($conn, "select * from mahasiswa where nim='$user'");
     
-    while ($row = mysqli_fetch_array($data)) {
+    $row = mysqli_fetch_array($data);
     $nim = $row['nim'];
 
     if(isset($_POST['semester'])){
@@ -71,7 +77,5 @@
                 </td>
             </tr>
         </table>
-
-    <?php } ?>
 </body>
 </html>
