@@ -54,3 +54,9 @@ function submitForm() {
 if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
 }
+
+$(document).ready(function () {
+  $('#example').DataTable();
+
+  
+});

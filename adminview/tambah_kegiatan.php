@@ -14,6 +14,7 @@ if (isset($_POST["atur"])) {
 
 <!DOCTYPE html>
 <html lang="en">
+    
 
 <head>
     <meta charset="UTF-8">
@@ -22,8 +23,12 @@ if (isset($_POST["atur"])) {
 </head>
 
 <body>
+<table id="example">
+
+</table>
     <?php
     $semester = $_GET['smt'];
+    $prodi = $_GET['prd'];
     $kelas = $_GET['kls'];
     $jumlah = $_GET['jml'];
 
@@ -32,6 +37,10 @@ if (isset($_POST["atur"])) {
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">SEMESTER</label>
             <input name="semester" type="text" class="form-control" id="validationDefault01" value="<?php echo $semester; ?>" readonly required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">PRODI</label>
+            <input name="prodi" type="text" class="form-control" id="validationDefault01" value="<?php echo $prodi; ?>" readonly required>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">KELAS</label>

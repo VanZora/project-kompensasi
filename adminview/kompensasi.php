@@ -4,6 +4,7 @@ include 'header.php';
 require '../function.php';
 if (isset($_POST["kode_kompen"])) {
 
+    echo "asasasa";
     if (deleteKompen($_POST) > 0)
         header("location:?page=kompensasi");
     else
@@ -21,49 +22,53 @@ if (isset($_POST["kode_kompen"])) {
 </head>
 
 <body>
-    <a href="?page=set_kegiatan" class="btn btn-warning btn-sm">Tambahkan Kegiatan</a>
-    <table class="table table-striped table-bordered border-dark-subtle">
-        <tr>
-            <td>KODE KOMPENSASI</td>
-            <td>SEMESTER</td>
-            <td>KELAS</td>
-            <td>JUMLAH MAHASISWA</td>
-            <td>PENGAWAS</td>
-            <td>TEMPAT</td>
-            <td>WAKTU</td>
-            <td>TANGGAL</td>
-            <td>Progress</td>
-            <td>AKSI</td>
-        </tr>
+    <div class="d-grid gap-2">
+        <a href="?page=set_kegiatan" class="btn btn-outline-secondary btn-sm">Tambahkan Kegiatan</a>
+    </div><br>
 
-        <?php
-        $data = mysqli_query($conn, "select kode_kompen, semester, kelas, jml_mhs, pengawas.nama, tempat, tanggal, waktu, progress from admin_kompen INNER JOIN pengawas ON admin_kompen.nik_pengawas = pengawas.nik");
-
-        while ($row = mysqli_fetch_array($data)) { ?>
-            <form action="" method="post">
+    <form action="" method="post">
+        <table id="example" class="table table-striped table-bordered border-light-subtle table-sm">
+            <thead>
                 <tr>
-                    <td><?php echo $row['kode_kompen']; ?></td>
-                    <td><?php echo $row['semester']; ?></td>
-                    <td><?php echo $row['kelas']; ?></td>
-                    <td><?php echo $row['jml_mhs']; ?></td>
-                    <td><?php echo $row['nama']; ?></td>
-                    <td><?php echo $row['tempat']; ?></td>
-                    <td><?php echo $row['tanggal']; ?></td>
-                    <td><?php echo $row['waktu']; ?></td>
-                    <td><a href="?page=progress&kd=<?php echo $row['kode_kompen']; ?>"><?php echo $row['progress']; ?> </a></td>
-                </td>
-                    <td><span>
-                            <input type="hidden" name="kode" value="<?php echo $row['kode_kompen']; ?>">
-                            <button name="kode_kompen" type="submit" class="btn btn-danger">
-                                <i class="bx bx-trash"></i>
-                            </button></span></td>
-
+                    <th>KODE KOMPENSASI</th>
+                    <th>SEMESTER</th>
+                    <th>PRODI</th>
+                    <th>KELAS</th>
+                    <th>JUMLAH MAHASISWA</th>
+                    <th>PENGAWAS</th>
+                    <th>TEMPAT</th>
+                    <th>TANGGAL</th>
+                    <th>Progress</th>
+                    <th>AKSI</th>
                 </tr>
-            </form>
-        <?php } ?>
+            </thead>
 
+            <tbody>
+                <?php
+                $data = mysqli_query($conn, "select kode_kompen, prodi, semester, kelas, jml_mhs, pengawas.nama, tempat, tanggal, waktu, progress from admin_kompen INNER JOIN pengawas ON admin_kompen.nik_pengawas = pengawas.nik");
 
-    </table>
+                while ($row = mysqli_fetch_array($data)) { ?>
+                    <tr>
+                        <td><?php echo $row['kode_kompen']; ?></td>
+                        <td><?php echo $row['semester']; ?></td>
+                        <td><?php echo $row['prodi']; ?></td>
+                        <td><?php echo $row['kelas']; ?></td>
+                        <td><?php echo $row['jml_mhs']; ?></td>
+                        <td><?php echo $row['nama']; ?></td>
+                        <td><?php echo $row['tempat']; ?></td>
+                        <td><?php echo $row['tanggal']; ?></td>
+                        <td><a href="?page=progress&kd=<?php echo $row['kode_kompen']; ?>"><?php echo $row['progress']; ?> </a></td>
+                        <td><span>
+                                <input type="hidden" name="kode" value="<?php echo $row['kode_kompen']; ?>">
+                                <button name="kode_kompen" type="submit" class="btn btn-danger">
+                                    <i class="bx bx-trash"></i>
+                                </button></span></td>
+
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </form>
 </body>
 
 </html>

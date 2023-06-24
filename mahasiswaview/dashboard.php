@@ -1,5 +1,6 @@
 <?php $page = "dashboard"; 
-include 'header.php'; 
+include 'header.php';
+include "../function.php"; 
 // if(array_key_exists('cetak', $_POST)) {
 //     cetak();
 // } untuk memanggil fungsi lewat button
@@ -19,7 +20,15 @@ include 'header.php';
     </style>
 </head>
 <body>
-    <a href="suratkompensasi.php" target="_blank" id="somebutton">Cetak</a>
+    <?php
+    session_start();
+    $user = $_SESSION["user"];
+
+    $tuntas = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$user' and tuntas='belum'");
+    if(mysqli_num_rows($tuntas) >= 1){
+        echo "AD KOMPEN";
+    }
+    ?>
     <form id="inputan" action="" method="post">
         <select name="semester" id="semester" onchange="submitForm()">
         <option selected values="">Pilih semester</option>
@@ -30,9 +39,6 @@ include 'header.php';
         </select>
     </form>
 <?php
-    include "../function.php";
-    session_start();
-    $user = $_SESSION["user"];
     $data = mysqli_query($conn, "select * from mahasiswa where nim='$user'");
     
     $row = mysqli_fetch_array($data);

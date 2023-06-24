@@ -11,8 +11,7 @@ include 'header.php'; ?>
 </head>
 
 <body>
-    <a href="?page=set_kegiatan" class="btn btn-warning btn-sm">Tambahkan Kegiatan</a>
-
+    <a href="suratkompensasi.php" target="_blank" class="btn btn-warning btn-sm">Cetak</a>
     <table class="table table-striped table-bordered border-dark-subtle">
         <tr>
             <td>DURASI KOMPENSASI</td>

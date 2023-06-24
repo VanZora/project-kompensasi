@@ -57,6 +57,7 @@ function atur_kegiatan($data)
     global $conn;
 
     $semester = $data['semester'];
+    $prodi = $data['prodi'];
     $kelas = $data['kelas'];
     $jml_mhs = $data['jml_mhs'];
     $pengawas = $data['pengawas'];
@@ -65,12 +66,12 @@ function atur_kegiatan($data)
     $waktu = $data['waktu'];
 
     $kode = date("mYdhis");
-    mysqli_query($conn, "insert into admin_kompen values('$kode', '$semester', '$kelas', '$jml_mhs', '$pengawas','$tempat','$tanggal','$waktu', 'Belum Selesai')");
-    mysqli_query($conn, "insert into tgs_pengawas values('', '$kode', '$pengawas', '$semester', '$kelas', '$jml_mhs','$tempat','$tanggal','$tempat', 'OTW')");
+    mysqli_query($conn, "insert into admin_kompen values('$kode', '$semester', '$prodi','$kelas', '$jml_mhs', '$pengawas','$tempat','$tanggal','$waktu', 'Belum Selesai')");
+    mysqli_query($conn, "insert into tgs_pengawas values('', '$kode', '$pengawas', '$semester', '$prodi', '$kelas', '$jml_mhs','$tempat','$tanggal','$tempat', 'OTW')");
 
-    $data = mysqli_query($conn, "select distinct mahasiswa.kelas, mahasiswa.semester, 
+    $data = mysqli_query($conn, "select distinct mahasiswa.kelas, mahasiswa.prodi, mahasiswa.semester, 
             mahasiswa.nim from logabsen INNER JOIN mahasiswa ON logabsen.nim_mhs = mahasiswa.nim WHERE ket!='Hadir' 
-            and logabsen.semester=mahasiswa.semester and mahasiswa.kelas='$kelas' and mahasiswa.semester='$semester'");
+            and logabsen.semester=mahasiswa.semester and mahasiswa.kelas='$kelas' and mahasiswa.prodi='$prodi' and mahasiswa.semester='$semester'");
 
     while ($row = mysqli_fetch_array($data)) {
         $nim = $row['nim'];
@@ -90,7 +91,7 @@ function atur_kegiatan($data)
 
         $hari = $jamtotal / 24;
         for ($i = 0; $i < $hari; $i++) {
-            mysqli_query($conn, "insert into mhs_kegiatan values('', '$nim', '$kode', '-', 'Belum')");
+            mysqli_query($conn, "insert into mhs_kegiatan values('', '$nim', '$kode', '-', 'belum')");
         }
     }
 
