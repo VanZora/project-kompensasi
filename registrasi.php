@@ -34,13 +34,13 @@ if (isset($_POST["register"])) {
         <ul>
             <li>
                 <?php
-                $data = mysqli_query($conn, "select * from pengawas")
+                $data = mysqli_query($conn, "select * from mahasiswa")
                 ?>
                 <label for="username">Username :</label>
                 <select name="username" id="">
                     <?php
                     while ($row = mysqli_fetch_array($data)) { ?>
-                        <option value="<?php echo $row['nik'];?>"><?php echo $row['nama'];?></option>
+                        <option value="<?php echo $row['nim'];?>"><?php echo $row['nama'];?></option>
                     <?php }
                     ?>
                 </select>
