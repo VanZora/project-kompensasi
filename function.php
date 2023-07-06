@@ -66,7 +66,7 @@ function atur_kegiatan($data)
     $waktu = $data['waktu'];
 
     $kode = date("mYdhis");
-    mysqli_query($conn, "insert into admin_kompen values('$kode', '$semester', '$prodi','$kelas', '$jml_mhs', '$pengawas','$tempat','$tanggal','$waktu', 'Belum Selesai')");
+    mysqli_query($conn, "insert into admin_kompen values('$kode', '$semester', '$prodi','$kelas', '$jml_mhs', '$pengawas','$tempat','$tanggal','$waktu')");
     mysqli_query($conn, "insert into tgs_pengawas values('', '$kode', '$pengawas', '$semester', '$prodi', '$kelas', '$jml_mhs','$tempat','$tanggal','$tempat', 'OTW')");
 
     $data = mysqli_query($conn, "select distinct mahasiswa.kelas, mahasiswa.prodi, mahasiswa.semester, 
@@ -89,10 +89,11 @@ function atur_kegiatan($data)
         $jamtotal = $jamtotal * 2;
         mysqli_query($conn, "insert into mhs_kompen values('', '$kode', '$nim', '$jamtotal', '$pengawas', '-', '-')");
 
-        $hari = $jamtotal / 24;
-        for ($i = 0; $i < $hari; $i++) {
-            mysqli_query($conn, "insert into mhs_kegiatan values('', '$nim', '$kode', '-', 'belum')");
-        }
+        mysqli_query($conn, "insert into mhs_kegiatan values('', '$nim', '$kode', '-', 0, 'belum')");
+        // $hari = $jamtotal / 24;
+        // for ($i = 0; $i < $hari; $i++) {
+        //     mysqli_query($conn, "insert into mhs_kegiatan values('', '$nim', '$kode', '-', 'belum')");
+        // }
     }
 
     return mysqli_affected_rows($conn);
@@ -102,7 +103,7 @@ function deleteKompen($data)
 {
     global $conn;
 
-    $kode_kompen = $data['kode'];
+    $kode_kompen = $data['kd'];
     mysqli_query($conn, "delete from admin_kompen where kode_kompen='$kode_kompen'");
 
     return mysqli_affected_rows($conn);
@@ -114,6 +115,7 @@ function ubahKegiatan($data)
 
     $nim = $data['usr'];
     $kode_kompen = $data['kd'];
+    $total_potong = $data['wkt'];
 
     $datasql = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
 
@@ -121,12 +123,26 @@ function ubahKegiatan($data)
     while ($row = mysqli_fetch_array($datasql)) {
         $id = $row['id'];
         $kegiatan = $data['kegiatan' . strval($input)];
+        $durasi = $data['durasi' . strval($input)];
         $tuntas = "belum";
-        if (isset($data['tuntas' . strval($input)])) {
+        if (empty($data['tuntas' . strval($input)])) {
+            // mysqli_query($conn, "delete from mhs_kegiatan order by id desc limit 1");
+        } else {
             $tuntas = "ya";
         }
-        mysqli_query($conn, "update mhs_kegiatan set kegiatan='$kegiatan', tuntas='$tuntas' where id='$id'");
+        mysqli_query($conn, "update mhs_kegiatan set kegiatan='$kegiatan', durasi='$durasi', tuntas='$tuntas' where id='$id'");
         $input++;
+    }
+    if (empty($data['tuntas' . strval($input - 2)]) && mysqli_num_rows($datasql) > 1) {
+        mysqli_query($conn, "delete from mhs_kegiatan order by id desc limit 1");
+    } 
+    if (empty($data['tuntas' . strval($input - 1)])) {
+        
+    }
+    else{
+        if ($total_potong >= 0) {
+            mysqli_query($conn, "insert into mhs_kegiatan values('', '$nim', '$kode_kompen', '-', 0, 'belum')");
+        }
     }
 
     return mysqli_affected_rows($conn);
