@@ -18,8 +18,9 @@ include 'header.php'; ?>
 </head>
 
 <body>
+<button class="btn btn-outline-secondary btn-sm" onclick="history.back()"><i class='bx bx-arrow-back' ></i></button><br><br>
     <form id="inputan" action="" method="post">
-        <select name="semester" id="semester" onchange="submitForm()">
+        <select name="semester" id="semester" onchange="submitForm()" class="form-select form-select-sm">
             <option selected values="">Pilih semester</option>
             <option value="1">Semester 1</option>
             <option value="2">Semester 2</option>
@@ -32,7 +33,7 @@ include 'header.php'; ?>
     include "../function.php";
 
     $nim = $_GET['id'];
-    $semester = "Total";
+    $semester = "1 - 4";
     $data = mysqli_query($conn, "select * from mahasiswa where nim='$nim'");
 
     $row = mysqli_fetch_assoc($data);
@@ -57,47 +58,67 @@ include 'header.php'; ?>
     $total = $izin['izin'] + $alfa['alfa'] + $sakit['sakit'];
     ?>
 
-    <p><?php echo $row['nama']; ?></p>
+    <h4><?php echo $row['nama'] . " " . $row['nim'] ?></h4>
     <p>Total ketidakhadiran semester <?php echo $semester; ?> adalah <?php echo $total; ?></p>
 
-    <table>
+    <div class="row">
+        <div class="col">
+            <div class="card text-white bg-danger mb-3" style="max-width: 25rem;">
+                <div class="card-header">Alfa</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total Alfa :</h5>
+                    <h3 class="card-text"><?php echo $alfa['alfa']; ?></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3" style="max-width: 25rem;">
+                <div class="card-header">Izin</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total Izin :</h5>
+                    <h3 class="card-text"><?php echo $izin['izin']; ?></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-success mb-3" style="max-width: 25rem;">
+                <div class="card-header">Sakit</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total Sakit :</h5>
+                    <h3 class="card-text"><?php echo $sakit['sakit']; ?></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php $data = mysqli_query($conn, "select pertemuan, tanggal, nm_matkul, matkul.nm_dosen, ket from logabsen INNER JOIN matkul ON logabsen.nm_matkul = matkul.nama where ket!='Hadir' and nim_mhs='$nim' and semester='$semester'"); ?>
+
+    <table class="table">
         <tr>
-            <td>
-                <p>Alfa : <?php echo $alfa['alfa']; ?></p>
-            </td>
-            <td>
-                <p>Izin : <?php echo $izin['izin']; ?></p>
-            </td>
-            <td>
-                <p>Sakit : <?php echo $sakit['sakit']; ?></p>
-            </td>
+            <td>No</td>
+            <td>Pertemuan</td>
+            <td>Tanggal</td>
+            <td>Matkul</td>
+            <td>Dosen</td>
+            <td>Keterangan</td>
         </tr>
-        <tr>
-            <td>
-                <?php
-                $dataDet = mysqli_query($conn, "select * from logabsen where ket='Alfa' and nim_mhs='$nim' and semester='$semester'");
-                while ($row2 = mysqli_fetch_array($dataDet)) { ?>
 
-                    <p>Pertemuan ke <?php echo $row2['pertemuan']; ?> tanggal <?php echo $row2['tanggal']; ?></p>
-                <?php } ?>
-            </td>
-            <td>
-                <?php
-                $dataDet = mysqli_query($conn, "select * from logabsen where ket='Izin' and nim_mhs='$nim' and semester='$semester'");
-                while ($row2 = mysqli_fetch_array($dataDet)) { ?>
-
-                    <p>Pertemuan ke <?php echo $row2['pertemuan']; ?> tanggal <?php echo $row2['tanggal']; ?></p>
-                <?php } ?>
-            </td>
-            <td>
-                <?php
-                $dataDet = mysqli_query($conn, "select * from logabsen where ket='Sakit' and nim_mhs='$nim' and semester='$semester'");
-                while ($row2 = mysqli_fetch_array($dataDet)) { ?>
-
-                    <p>Pertemuan ke <?php echo $row2['pertemuan']; ?> tanggal <?php echo $row2['tanggal']; ?></p>
-                <?php } ?>
-            </td>
-        </tr>
+        <?php 
+        $nomor = 1;
+        while ($row = mysqli_fetch_array($data)){ 
+            ?>
+        
+            <tr>
+                <td><?php echo $nomor; ?></td>
+                <td><?php echo $row['pertemuan']; ?></td>
+                <td><?php echo $row['tanggal']; ?></td>
+                <td><?php echo $row['nm_matkul']; ?></td>
+                <td><?php echo $row['nm_dosen']; ?></td>
+                <td><?php echo $row['ket']; ?></td>
+            </tr>
+            
+        <?php $nomor++; }
+        
+        ?>
     </table>
 </body>
 

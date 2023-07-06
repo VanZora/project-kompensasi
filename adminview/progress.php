@@ -1,18 +1,29 @@
-<?php $page = "dashboard";
+<?php $page = "kompensasi";
 include 'header.php';
 include '../function.php';
-$pesan = "<script> alert('Berhasil Disimpan'); </script>";
 if (isset($_POST["acc"])) {
 
     if (validasiAdmin($_POST) > 0) {
-        echo $pesan;
+        echo "<script>
+        Swal.fire(
+            'Berhasil!',
+            'Kegiatan telah divalidasi!',
+            'success'
+        )
+        </script>";
     } else
         echo mysqli_error($conn);
 }
 if (isset($_POST["cancel"])) {
 
     if (cancelAdmin($_POST) > 0) {
-        echo $pesan;
+        echo "<script>
+        Swal.fire(
+            'Peringatan!',
+            'Validasi kegiatan dibatalkan!',
+            'warning'
+        )
+        </script>";
     } else
         echo mysqli_error($conn);
 }
@@ -35,10 +46,11 @@ if (isset($_POST["cancel"])) {
 </head>
 
 <body>
+    <button class="btn btn-outline-secondary btn-sm" onclick="location.href='?page=kompensasi';"><i class='bx bx-arrow-back'></i></button><br><br>
     <?php
     $kode_kompen = $_GET['kd'];
 
-    $pengawas = mysqli_query($conn, "select pengawas.nik, pengawas.nama, kode_kompen from tgs_pengawas INNER JOIN pengawas ON tgs_pengawas.nik_pengawas = pengawas.nik where tgs_pengawas.kode_kompen='$kode_kompen'");
+    $pengawas = mysqli_query($conn, "select pengawas.nik, pengawas.nama, pengawas.jurusan, kode_kompen from tgs_pengawas INNER JOIN pengawas ON tgs_pengawas.nik_pengawas = pengawas.nik where tgs_pengawas.kode_kompen='$kode_kompen'");
     $mahasiswa = mysqli_query($conn, "select distinct v_aprodi from mhs_kompen where kode_kompen='$kode_kompen'");
 
     $rowz = mysqli_fetch_assoc($pengawas);
@@ -46,7 +58,7 @@ if (isset($_POST["cancel"])) {
 
     $ket = "Validasi Admin Prodi";
     $valid = "acc";
-    $warna = "btn-primary";
+    $warna = "btn-success";
     if ($rowx['v_aprodi'] == "ACC") {
         $ket = "Batalkan Validasi";
         $valid = "cancel";
@@ -54,12 +66,26 @@ if (isset($_POST["cancel"])) {
     }
     ?>
 
-    <h1><?php echo $rowz['nama']; ?></h1>
-
+    <table>
+        <tr>
+            <td>Pengawas</td>
+            <th>: <?php echo $rowz['nama']; ?></th>
+        </tr>
+        <tr>
+            <td>Prodi</td>
+            <th>: <?php echo $rowz['jurusan'] ?></th>
+        </tr>
+        <tr>
+            <td>Kelas</td>
+            <th>: AXioo</th>
+        </tr>
+        
+    </table><br>
+    <a href="" target=" _blank" class="btn btn-success btn-sm"><i class="bx bxs-printer"></i> Cetak</a><br>
     <form action="" method="post">
         <div class="d-grid gap-2">
             <input type="hidden" name="kd" value="<?php echo $rowz['kode_kompen']; ?>">
-            <input type="submit" name="<?php echo $valid; ?>" value="<?php echo $ket; ?>" class="btn <?php echo $warna; ?> btn-sm">
+            <button name="<?php echo $valid; ?>" class="btn <?php echo $warna; ?> btn-sm"><?php echo $ket; ?></button>
         </div><br>
     </form>
     <table id="example" class="table table-striped table-bordered border-light-subtle">
@@ -86,10 +112,10 @@ if (isset($_POST["cancel"])) {
                     <td><?php echo $row['nama']; ?></td>
                     <td><?php echo $row['jml_jam']; ?></td>
                     <td><?php if (mysqli_num_rows($data2) >= 1) {
-                                                    echo "Belum Selesai";
-                                                } else {
-                                                    echo "Tuntas";
-                                                } ?>
+                            echo "Belum Selesai";
+                        } else {
+                            echo "Tuntas";
+                        } ?>
                         <?php if (mysqli_num_rows($data3) >= 1) {
                             echo " (Tervalidasi)";
                         } else {

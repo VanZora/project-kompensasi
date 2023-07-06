@@ -51,12 +51,14 @@ function submitForm() {
   document.getElementById("inputan").submit();
 }
 
-if ( window.history.replaceState ) {
-    window.history.replaceState( null, null, window.location.href );
+if (window.history.replaceState) {
+  window.history.replaceState(null, null, window.location.href);
 }
 
 $(document).ready(function () {
   $('#example').DataTable();
-
-  
 });
+
+function peringatan(){
+  alert('asasas');
+}

@@ -5,7 +5,17 @@ require '../function.php';
 if (isset($_POST["atur"])) {
 
     if (atur_kegiatan($_POST) > 0) {
-        header("location:?page=kompensasi");
+        echo "<script>
+        Swal.fire(
+            'Berhasil!',
+            'Kegiatan telah ditambahkan!',
+            'success'
+        ).then((result) => {
+            if (result.isConfirmed) {
+                window.location='?page=kompensasi';
+            }
+        })
+        </script>";
     } else {
         echo mysqli_error($conn);
     }
@@ -14,7 +24,7 @@ if (isset($_POST["atur"])) {
 
 <!DOCTYPE html>
 <html lang="en">
-    
+
 
 <head>
     <meta charset="UTF-8">
@@ -23,9 +33,7 @@ if (isset($_POST["atur"])) {
 </head>
 
 <body>
-<table id="example">
-
-</table>
+    <button class="btn btn-outline-secondary btn-sm" onclick="history.back()"><i class='bx bx-arrow-back'></i></button><br><br>
     <?php
     $semester = $_GET['smt'];
     $prodi = $_GET['prd'];
@@ -51,8 +59,8 @@ if (isset($_POST["atur"])) {
             <input name="jml_mhs" type="text" class="form-control" id="validationDefault01" value="<?php echo $jumlah; ?>" readonly required>
         </div>
         <div class="mb-3">
-            <select name="pengawas" class="form-select" aria-label="Default select example">
-            <option selected>Pilih Pengawas</option>
+            <select name="pengawas" class="form-select" aria-label="Default select example" required>
+                <option value="dimas123">Pilih Pengawas</option>
                 <?php
                 $data = mysqli_query($conn, "select * from pengawas");
                 foreach ($data as $row) { ?>
@@ -69,14 +77,12 @@ if (isset($_POST["atur"])) {
             <input name="tanggal" type="date" class="form-control" id="validationDefault01" required>
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Waktu Kegiatan</label>
-            <input name="waktu" type="text" class="form-control" id="validationDefault01" placeholder="Atur lama kegiatan" required>
+            <label for="exampleFormControlInput1" class="form-label">Tanggal Akhir</label>
+            <input name="waktu" type="date" class="form-control" id="validationDefault01" placeholder="Atur lama kegiatan" required>
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <input type="submit" name="atur" value="Atur" class="btn btn-secondary" type="button">
-            <a href="?page=jadwalpage" class="btn btn-outline-secondary"> Kembali</a>
-        </div>
+        <div class="d-grid gap-2">
+            <input type="submit" name="atur" value="Tambahkan" class="btn btn-secondary btn-sm" type="button">
+        </div><br><br>
     </form>
 </body>
-
 </html>

@@ -18,75 +18,49 @@ include 'header.php'; ?>
 </head>
 
 <body>
+<button class="btn btn-outline-secondary btn-sm" onclick="history.back()"><i class='bx bx-arrow-back' ></i></button><br><br>
     <?php
     include "../function.php";
 
     $nim = $_GET['id'];
     $semester = $_GET['smt'];
-    $data = mysqli_query($conn, "select * from mahasiswa where nim='$nim'");
+    $data = mysqli_query($conn, "select pertemuan, tanggal, nm_matkul, matkul.nm_dosen, ket from logabsen INNER JOIN matkul ON logabsen.nm_matkul = matkul.nama where ket!='Hadir' and nim_mhs='$nim' and semester='$semester'"); ?>
 
-    while ($row = mysqli_fetch_array($data)) {
+    <table class="table">
+        <tr>
+            <td>No</td>
+            <td>Pertemuan</td>
+            <td>Tanggal</td>
+            <td>Matkul</td>
+            <td>Dosen</td>
+            <td>Keterangan</td>
+        </tr>
 
-        $nim = $row['nim'];
-        $data2 = mysqli_query($conn, "select count(ket) as alfa from logabsen where ket='Alfa' and nim_mhs='$nim' and semester='$semester'");
-        $alfa = mysqli_fetch_assoc($data2);
-
-        $data3 = mysqli_query($conn, "select count(ket) as izin from logabsen where ket='Izin' and nim_mhs='$nim' and semester='$semester'");
-        $izin = mysqli_fetch_assoc($data3);
-
-        $data4 = mysqli_query($conn, "select count(ket) as sakit from logabsen where ket='Sakit' and nim_mhs='$nim' and semester='$semester'");
-        $sakit = mysqli_fetch_assoc($data4); ?>
-
-        <p><?php echo $row['nama']; ?></p>
-
-        <table class="table table-bordered">
+        <?php 
+        $nomor = 1;
+        while ($row = mysqli_fetch_array($data)){ 
+            ?>
+        
             <tr>
-                <td>
-                    <p>Alfa : <?php echo $alfa['alfa']; ?></p>
-                </td>
-                <td>
-                    <p>Izin : <?php echo $izin['izin']; ?></p>
-                </td>
-                <td>
-                    <p>Sakit : <?php echo $sakit['sakit']; ?></p>
-                </td>
+                <td><?php echo $nomor; ?></td>
+                <td><?php echo $row['pertemuan']; ?></td>
+                <td><?php echo $row['tanggal']; ?></td>
+                <td><?php echo $row['nm_matkul']; ?></td>
+                <td><?php echo $row['nm_dosen']; ?></td>
+                <td><?php echo $row['ket']; ?></td>
             </tr>
-            <tr>
-                <td>
-                    <?php
-                    $dataDet = mysqli_query($conn, "select * from logabsen where ket='Alfa' and nim_mhs='$nim' and semester='$semester'");
-                    while ($row2 = mysqli_fetch_array($dataDet)) { ?>
-
-                        <p>Pertemuan ke <?php echo $row2['pertemuan']; ?> tanggal <?php echo $row2['tanggal']; ?></p>
-                    <?php } ?>
-                </td>
-                <td>
-                    <?php
-                    $dataDet = mysqli_query($conn, "select * from logabsen where ket='Izin' and nim_mhs='$nim' and semester='$semester'");
-                    while ($row2 = mysqli_fetch_array($dataDet)) { ?>
-
-                        <p>Pertemuan ke <?php echo $row2['pertemuan']; ?> tanggal <?php echo $row2['tanggal']; ?></p>
-                    <?php } ?>
-                </td>
-                <td>
-                    <?php
-                    $dataDet = mysqli_query($conn, "select * from logabsen where ket='Sakit' and nim_mhs='$nim' and semester='$semester'");
-                    while ($row2 = mysqli_fetch_array($dataDet)) { ?>
-
-                        <p>Pertemuan ke <?php echo $row2['pertemuan']; ?> tanggal <?php echo $row2['tanggal']; ?></p>
-                    <?php } ?>
-                </td>
-            </tr>
-
-        </table>
-
-    <?php } ?>
+            
+        <?php $nomor++; }
+        
+        ?>
+    </table>
 </body>
 
 <script>
     document.querySelector('.click').addEventListener('click', (e) => {
-    // Do whatever you want
-    e.target.textContent = 'Clicked!';
+        // Do whatever you want
+        e.target.textContent = 'Clicked!';
     });
 </script>
+
 </html>

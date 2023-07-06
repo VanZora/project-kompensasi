@@ -29,7 +29,13 @@
     include "../function.php";
     session_start();
     $user = $_SESSION["user"];
-    $data = mysqli_query($conn, "select mahasiswa.nama, mahasiswa.nim, pengawas.nama as namapengawas from mhs_kompen INNER JOIN mahasiswa ON mhs_kompen.nim_mhs = mahasiswa.nim INNER JOIN pengawas ON mhs_kompen.nik_pengawas = pengawas.nik where mhs_kompen.nim_mhs='$user'");
+    $semester = $_GET['smt'];
+
+    $data = mysqli_query($conn, "select mahasiswa.nama, admin_kompen.semester, mahasiswa.nim, pengawas.nama as namapengawas 
+    from mhs_kompen INNER JOIN mahasiswa ON mhs_kompen.nim_mhs = mahasiswa.nim INNER JOIN pengawas 
+    ON mhs_kompen.nik_pengawas = pengawas.nik INNER JOIN admin_kompen ON mhs_kompen.kode_kompen = admin_kompen.kode_kompen where 
+    mhs_kompen.nim_mhs='$user' and admin_kompen.semester='$semester'");
+
     $data2 = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$user'");
     $row = mysqli_fetch_assoc($data);
 
@@ -79,9 +85,51 @@
 
         <p>Telah menyelesaikan kompensasi presensi sesuai prosedur dan pedoman akademik Politeknik Negeri Banjarmasin</p>
 
-        <div style="width: 50%; text-align: left; float: right;">Banjarmasin, 20 Januari 2020</div><br>
-        <div style="width: 50%; text-align: left; float: right;">Yang bertanda tangan,</div><br><br><br><br><br>
-        <div style="width: 50%; text-align: left; float: right;">Nurhidayati</div>
+        <?php
+        $validasiP = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and v_pengawas='ACC'");
+        $validasiA = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and v_aprodi='ACC'");
+        $namattd = mysqli_query($conn, "select pengawas.nama from mhs_kompen INNER JOIN pengawas ON mhs_kompen.nik_pengawas = pengawas.nik where nim_mhs='$user'");
+        $nama = mysqli_fetch_assoc($namattd);
+        ?>
+
+        <table>
+            <tr>
+                <td></td>
+                <td width=""></td>
+                <td>Banjarmasin, 20 Januari 2020</td>
+            </tr>
+            <tr>
+                <td>Tanda tangan pengawas</td>
+                <td width="55%"></td>
+                <td>Tanda tangan Kaprodi</td>
+            </tr>
+            <tr>
+                <td><?php if (mysqli_num_rows($validasiP) >= 1) {
+                        echo '<img src="../img/qrsaja.png" alt="">';
+                    } else {
+                    } ?></td>
+                <td></td>
+                <td><?php if (mysqli_num_rows($validasiA) >= 1) {
+                        echo '<img src="../img/qrsaja.png" alt="">';
+                    } else {
+                    } ?></td>
+            </tr>
+            <tr>
+            <td><?php if (mysqli_num_rows($validasiP) >= 1) {
+                        echo $nama['nama'];
+                    } else {
+                    } ?></td>
+                <td></td>
+                <td><?php if (mysqli_num_rows($validasiA) >= 1) {
+                        echo 'Beliau';
+                    } else {
+                    } ?></td>
+            </tr>
+        </table>
+        <!-- <div style="width: 50%; text-align: left; float: right;">Banjarmasin, 20 Januari 2020</div><br>
+        <div style="width: 50%; text-align: left; float: right;">Yang bertanda tangan, <br> <img src="../img/qrsaja.png" alt=""></div>
+        
+        <br><div style="width: 50%; text-align: left; float: right;">Nurhidayati</div> -->
 
     </div>
 </body>
@@ -101,8 +149,6 @@
 
     head.appendChild(style);
     window.print();
-
-    
 </script>
 
 </html>

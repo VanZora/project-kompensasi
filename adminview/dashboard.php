@@ -27,7 +27,7 @@ include 'header.php'; ?>
             <?php
             include "../function.php";
 
-            $data = mysqli_query($conn, "select * from mahasiswa");
+            $data = mysqli_query($conn, "select distinct nim, nama, mahasiswa.semester, mahasiswa.kelas, prodi from mahasiswa INNER JOIN logabsen ON mahasiswa.nim = logabsen.nim_mhs where ket!='Hadir'");
             while ($row = mysqli_fetch_array($data)) { ?>
                 <form action="" method="post">
                     <tr>

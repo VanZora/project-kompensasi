@@ -1,0 +1,57 @@
+.card-body{
+    display: inline-block;
+    font-family: "Roboto", sans-serif;
+    background: #bd3d2f;
+    padding: 20px;
+    width: 32%;
+    height: 110px;
+    color: #fff;
+    border-radius: 5px;
+    
+}
+.color1{
+    background: #a6a3a2;
+}
+.color2{
+    background: #b93a2c;
+}
+.color3{
+    background: #1367b0;
+}
+.color4{
+    background: #13b052;
+}
+.warna-detail{
+    background: #f0b103;
+    color: #ffffff;
+}
+.float-left{
+    float: left;
+}
+.float-right{
+    float: right;
+}
+.card-body h3{
+    margin-bottom: 5px;
+}
+.count{
+    font-size: 30px;
+    font-weight: 500;
+}
+.card-body p{
+    font-size: 16px;
+    margin-top: 0;
+}
+.font1{
+    font-family: "tahoma", sans-serif;
+}
+.kompensasi{
+    padding: 10px;
+    margin-top: 20px;
+    background: #edebeb;
+    border-radius: 5px;
+    width: 100%;
+    height: 300px;
+    color: #000;
+    box-shadow: 0 0 5px rgba(0,0,0,0.4);
+}

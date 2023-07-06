@@ -1,15 +1,20 @@
-<?php $page = "dashboard";
+<?php $page = "kompensasi";
 include 'header.php';
 
 require '../function.php';
 if (isset($_POST["atur"])) {
 
+    $alert = "<script>
+    Swal.fire(
+        'Berhasil!',
+        'Progress telah disimpan!',
+        'succes'
+    )
+            </script>";
     if (ubahKegiatan($_POST) > 0) {
-        echo "<script>
-                    alert('Berhasil Disimpan');
-                    </script>";
+        echo $alert;
     } else {
-        echo mysqli_error($conn);
+        echo $alert;
     }
 }
 ?>
@@ -21,40 +26,66 @@ if (isset($_POST["atur"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <style>
+        table td, table td * {
+    vertical-align: top;
+}
+    </style>
 </head>
 
 <body>
+    <button class="btn btn-outline-secondary btn-sm" onclick="location.href='?page=kompensasi'"><i class='bx bx-arrow-back'></i></button><br><br>
     <form action="" method="post">
-        <table class="table table-striped table-bordered border-dark-subtle">
+        <?php
+        $nim = $_GET['usr'];
+        $kode_kompen = $_GET['kd'];
+
+        $datax = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
+        $isi = mysqli_fetch_assoc($datax);
+
+        $total_potong = $isi['jml_jam'];
+        ?>
+        
+        <table class="table border-light-subtle">
             <tr>
-                <td>KEGIATAN</td>
-                <td>TUNTAS</td>
+                <th>KEGIATAN</th>
+                <th>DURASI</th>
+                <th>VERIFIKASI PENGAWAS</th>
             </tr>
 
             <?php
-            $nim = $_GET['usr'];
-            $kode_kompen = $_GET['kd'];
-
             $data = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
             $input = 0;
-            while ($row = mysqli_fetch_array($data)) { ?>
+            while ($row = mysqli_fetch_array($data)) { 
+                $total_potong -= $row['durasi'];
+                ?>
                 <tr>
-                    <td><input name="<?php echo 'kegiatan' . strval($input); ?>" type="text" value="<?php echo $row['kegiatan']; ?>"></td>
-                    <td><input name="<?php echo 'tuntas' . strval($input); ?>" type="checkbox" <?php if ($row['tuntas'] == "ya") {
-                                                                                                    echo "checked";
-                                                                                                } ?>></td>
+                    <td>Hari <?php echo $input + 1; ?> <textarea name="<?php echo 'kegiatan' . strval($input); ?>"><?php echo $row['kegiatan']; ?></textarea></td>
+                    <td><input type="text" name="<?php echo 'durasi' . strval($input); ?>" value="<?php echo $row['durasi']; ?>"> jam</td>
+                    <td><input name="<?php echo 'tuntas' . strval($input); ?>" type="hidden" value="<?php if ($row['tuntas'] == 'ya') {
+                                                                                                        echo 'Diverifikasi';
+                                                                                                    } else {
+                                                                                                        echo '';
+                                                                                                    } ?>">
+                        <p><?php if ($row['tuntas'] == 'ya') {
+                                echo 'Diverifikasi';
+                            } else {
+                                echo 'Belom';
+                            } ?></p>
+                    </td>
                 </tr>
 
             <?php $input++;
             } ?>
         </table>
-
+        <p>Sisa waktu pengerjaan : <?php echo $total_potong; ?></p>
+        
+        <input type="hidden" name="wkt" value="<?php echo $total_potong; ?>">
         <input type="hidden" name="usr" value="<?php echo $nim; ?>">
         <input type="hidden" name="kd" value="<?php echo $kode_kompen; ?>">
-        
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <input type="submit" name="atur" value="Simpan" class="btn btn-secondary" type="button">
-            <a href="?page=jadwalpage" class="btn btn-outline-secondary"> Kembali</a>
+
+        <div class="d-grid gap-2">
+            <input type="submit" name="atur" value="Simpan" class="btn btn-outline-primary btn-sm" type="button">
         </div>
     </form>
 

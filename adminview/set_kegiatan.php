@@ -10,6 +10,7 @@
 </head>
 
 <body>
+<button class="btn btn-outline-secondary btn-sm" onclick="history.back()"><i class='bx bx-arrow-back' ></i></button><br><br>
     <table class="table table-striped table-bordered border-dark-subtle">
         <tr>
             <td>SEMESTER</td>

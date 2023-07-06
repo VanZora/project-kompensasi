@@ -5,7 +5,7 @@
     </header>
     <div class="l-navbar show" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Admin</span> </a>
+            <div> <a href="#" class="nav_logo"> <i class='bx bxs-user-circle nav_logo-icon'></i> <span class="nav_logo-name">Admin</span> </a>
                 <div class="nav_list"> 
                     <a href="?page=dashboard" class="nav_link <?php if ($page=="dashboard"){echo 'active';}?>"> <i class='bx bxs-dashboard nav_icon'></i> 
                     <span class="nav_name">Dashboard</span> </a> 
@@ -17,3 +17,4 @@
     <!--Container Main start-->
     <div class="height-100 bg-white"><br>
         <div class="container-fluid">
+        
