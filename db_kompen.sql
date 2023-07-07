@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2023 at 07:30 AM
+-- Generation Time: Jul 06, 2023 at 04:35 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -44,7 +44,7 @@ CREATE TABLE `admin_kompen` (
 --
 
 INSERT INTO `admin_kompen` (`kode_kompen`, `semester`, `prodi`, `kelas`, `jml_mhs`, `nik_pengawas`, `tempat`, `tanggal`, `waktu`) VALUES
-('06202327071438', 4, 'Teknik Informatika', 'Axioo', 3, 'dimas123', 'Gedung A', '2023-06-21', '2023-06-28');
+('07202306041901', 4, 'Teknik Informatika', 'Axioo', 3, 'dimas123', 'Gedung A', '2023-07-04', '2023-07-29');
 
 -- --------------------------------------------------------
 
@@ -148,18 +148,19 @@ CREATE TABLE `matkul` (
   `id_matkul` varchar(50) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `jam` int(11) NOT NULL,
-  `jenis` varchar(50) NOT NULL
+  `jenis` varchar(50) NOT NULL,
+  `nm_dosen` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `matkul`
 --
 
-INSERT INTO `matkul` (`id_matkul`, `nama`, `jam`, `jenis`) VALUES
-('c111111', 'Artificial Intelligen', 8, 'Jurusan'),
-('c222222', 'Basis Data', 4, 'Jurusan'),
-('c333333', 'Metode Numerik', 4, 'Umum'),
-('c444444', 'Algoritma', 8, 'Jurusan');
+INSERT INTO `matkul` (`id_matkul`, `nama`, `jam`, `jenis`, `nm_dosen`) VALUES
+('c111111', 'Artificial Intelligen', 8, 'Jurusan', 'Udin sakadut'),
+('c222222', 'Basis Data', 4, 'Jurusan', 'Dimas Banjar'),
+('c333333', 'Metode Numerik', 4, 'Umum', 'Jamet Penghutang'),
+('c444444', 'Algoritma', 8, 'Jurusan', 'Samsat');
 
 -- --------------------------------------------------------
 
@@ -172,6 +173,7 @@ CREATE TABLE `mhs_kegiatan` (
   `nim_mhs` varchar(50) NOT NULL,
   `kode_kompen` varchar(50) NOT NULL,
   `kegiatan` varchar(50) NOT NULL,
+  `durasi` int(11) NOT NULL,
   `tuntas` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -179,12 +181,10 @@ CREATE TABLE `mhs_kegiatan` (
 -- Dumping data for table `mhs_kegiatan`
 --
 
-INSERT INTO `mhs_kegiatan` (`id`, `nim_mhs`, `kode_kompen`, `kegiatan`, `tuntas`) VALUES
-(86, 'z030321124', '06202327071438', '-', 'belum'),
-(87, 'z030321124', '06202327071438', '-', 'belum'),
-(88, 'z030321124', '06202327071438', '-', 'belum'),
-(89, 'z030321110', '06202327071438', '-', 'belum'),
-(90, 'z030321125', '06202327071438', '-', 'belum');
+INSERT INTO `mhs_kegiatan` (`id`, `nim_mhs`, `kode_kompen`, `kegiatan`, `durasi`, `tuntas`) VALUES
+(178, 'z030321124', '07202306041901', 'Menyapu lantai2\r\n', 24, 'belum'),
+(179, 'z030321110', '07202306041901', '-', 0, 'belum'),
+(180, 'z030321125', '07202306041901', '-', 0, 'belum');
 
 -- --------------------------------------------------------
 
@@ -207,9 +207,9 @@ CREATE TABLE `mhs_kompen` (
 --
 
 INSERT INTO `mhs_kompen` (`id`, `kode_kompen`, `nim_mhs`, `jml_jam`, `nik_pengawas`, `v_pengawas`, `v_aprodi`) VALUES
-(46, '06202327071438', 'z030321124', 56, 'dimas123', '-', '-'),
-(47, '06202327071438', 'z030321110', 8, 'dimas123', '-', '-'),
-(48, '06202327071438', 'z030321125', 8, 'dimas123', '-', '-');
+(99, '07202306041901', 'z030321124', 56, 'dimas123', '-', '-'),
+(100, '07202306041901', 'z030321110', 8, 'dimas123', '-', '-'),
+(101, '07202306041901', 'z030321125', 8, 'dimas123', '-', '-');
 
 -- --------------------------------------------------------
 
@@ -228,9 +228,9 @@ CREATE TABLE `pengawas` (
 --
 
 INSERT INTO `pengawas` (`nik`, `nama`, `jurusan`) VALUES
-('dimas123', 'Dimas', 'Teknik Elektro'),
-('jamet123', 'Jametz', 'Teknik Elektro'),
-('udin123', 'Udin', 'Teknik Elektro');
+('dimas123', 'Dimas', 'Teknik Informatika'),
+('jamet123', 'Jametz', 'Teknik Informatika'),
+('udin123', 'Udin', 'Teknik Informatika');
 
 -- --------------------------------------------------------
 
@@ -257,7 +257,7 @@ CREATE TABLE `tgs_pengawas` (
 --
 
 INSERT INTO `tgs_pengawas` (`id`, `kode_kompen`, `nik_pengawas`, `semester`, `prodi`, `kelas`, `jml_mhs`, `tempat`, `tanggal`, `waktu`, `progress`) VALUES
-(47, '06202327071438', 'dimas123', 4, 'Teknik Informatika', 'Axioo', 3, 'Gedung A', '2023-06-21', 'Gedung A', 'OTW');
+(72, '07202306041901', 'dimas123', 4, 'Teknik Informatika', 'Axioo', 3, 'Gedung A', '2023-07-04', 'Gedung A', 'OTW');
 
 -- --------------------------------------------------------
 
@@ -387,19 +387,19 @@ ALTER TABLE `logabsen`
 -- AUTO_INCREMENT for table `mhs_kegiatan`
 --
 ALTER TABLE `mhs_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
 
 --
 -- AUTO_INCREMENT for table `mhs_kompen`
 --
 ALTER TABLE `mhs_kompen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `tgs_pengawas`
 --
 ALTER TABLE `tgs_pengawas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `users`

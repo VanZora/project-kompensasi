@@ -25,12 +25,6 @@ if (isset($_POST["atur"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <style>
-        table td, table td * {
-    vertical-align: top;
-}
-    </style>
 </head>
 
 <body>
@@ -48,8 +42,9 @@ if (isset($_POST["atur"])) {
         
         <table class="table border-light-subtle">
             <tr>
+                <th>PENGERJAAN</th>
                 <th>KEGIATAN</th>
-                <th>DURASI</th>
+                <th>DURASI (JAM)</th>
                 <th>VERIFIKASI PENGAWAS</th>
             </tr>
 
@@ -60,8 +55,9 @@ if (isset($_POST["atur"])) {
                 $total_potong -= $row['durasi'];
                 ?>
                 <tr>
-                    <td>Hari <?php echo $input + 1; ?> <textarea name="<?php echo 'kegiatan' . strval($input); ?>"><?php echo $row['kegiatan']; ?></textarea></td>
-                    <td><input type="text" name="<?php echo 'durasi' . strval($input); ?>" value="<?php echo $row['durasi']; ?>"> jam</td>
+                    <td>Hari <?php echo $input + 1; ?></td>
+                    <td><textarea name="<?php echo 'kegiatan' . strval($input); ?>"><?php echo $row['kegiatan']; ?></textarea></td>
+                    <td><input type="number" name="<?php echo 'durasi' . strval($input); ?>" value="<?php echo $row['durasi']; ?>"></td>
                     <td><input name="<?php echo 'tuntas' . strval($input); ?>" type="hidden" value="<?php if ($row['tuntas'] == 'ya') {
                                                                                                         echo 'Diverifikasi';
                                                                                                     } else {

@@ -140,8 +140,8 @@ function ubahKegiatan($data)
         
     }
     else{
-        if ($total_potong >= 0) {
-            mysqli_query($conn, "insert into mhs_kegiatan values('', '$nim', '$kode_kompen', '-', 0, 'belum')");
+        if ($total_potong > 0) {
+            mysqli_query($conn, "insert into mhs_kegiatan values('', '$nim', '$kode_kompen', '', 0, 'belum')");
         }
     }
 

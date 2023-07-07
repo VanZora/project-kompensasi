@@ -51,12 +51,6 @@ if (isset($_POST["atur"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <style>
-        table td, table td * {
-    vertical-align: top;
-}
-    </style>
 </head>
 
 <body>
@@ -71,23 +65,24 @@ if (isset($_POST["atur"])) {
 
         $total_potong = $isi['jml_jam'];
         ?>
-        <table class="table border-light-subtle">
+        <table class="table border-light-subtle ">
             <tr>
-                <td>KEGIATAN</td>
-                <td>DURASI</td>
-                <td>VERIFIKASI PENGAWAS</td>
+                <th>PENGERJAAN</th>
+                <th>KEGIATAN</th>
+                <th>DURASI (JAM)</th>
+                <th>VERIFIKASI PENGAWAS</th>
             </tr>
 
             <?php
-
             $data = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
             $input = 0;
             while ($row = mysqli_fetch_array($data)) { 
                 $total_potong -= $row['durasi'];
                 ?>
                 <tr>
-                    <td>Hari <?php echo $input + 1; ?> <textarea name="<?php echo 'kegiatan' . strval($input); ?>" type="text"><?php echo $row['kegiatan']; ?></textarea></td>
-                    <td><input type="text" name="<?php echo 'durasi' . strval($input); ?>" value="<?php echo $row['durasi']; ?>"> jam</td>
+                    <td>Hari <?php echo $input + 1; ?></td>
+                    <td><textarea name="<?php echo 'kegiatan' . strval($input); ?>" type="text"><?php echo $row['kegiatan']; ?></textarea></td>
+                    <td><input type="number" name="<?php echo 'durasi' . strval($input); ?>" value="<?php echo $row['durasi']; ?>"></td>
                     <td><input name="<?php echo 'tuntas' . strval($input); ?>" type="checkbox" <?php if ($row['tuntas'] == "ya") {
                                                                                                     echo "checked";
                                                                                                 } ?>></td>
