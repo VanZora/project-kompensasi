@@ -47,7 +47,7 @@ if (isset($_POST["login"])) {
   <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
   <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
 
-  <title>CodePen - Bootstrap Login page</title>
+  <title>Login Kompensasi</title>
   <link rel="canonical" href="https://codepen.io/YinkaEnoch/pen/PxqrZV" />
 
 
