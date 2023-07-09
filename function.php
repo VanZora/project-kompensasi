@@ -155,7 +155,7 @@ function validasiPengawas($data)
     $nim = $data['nim'];
     $kode_kompen = $data['kd'];
 
-    mysqli_query($conn, "update mhs_kompen set v_pengawas='ACC' where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
+    mysqli_query($conn, "update mhs_kompen set v_pengawas='VALID' where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
 
     return mysqli_affected_rows($conn);
 }
@@ -172,24 +172,82 @@ function cancelPengawas($data)
     return mysqli_affected_rows($conn);
 }
 
-function validasiAdmin($data)
+function validasiKaprodiAll($data)
 {
     global $conn;
 
     $kode_kompen = $data['kd'];
 
-    mysqli_query($conn, "update mhs_kompen set v_aprodi='ACC' where kode_kompen='$kode_kompen'");
+    mysqli_query($conn, "update mhs_kompen set v_aprodi='VALID' where kode_kompen='$kode_kompen'");
 
     return mysqli_affected_rows($conn);
 }
-
-function cancelAdmin($data)
+function cancelKaprodiAll($data)
 {
     global $conn;
 
     $kode_kompen = $data['kd'];
 
     mysqli_query($conn, "update mhs_kompen set v_aprodi='-' where kode_kompen='$kode_kompen'");
+
+    return mysqli_affected_rows($conn);
+}
+
+function validasiKalabAll($data)
+{
+    global $conn;
+
+    $kode_kompen = $data['kd'];
+
+    mysqli_query($conn, "update mhs_kompen set v_pengawas='VALID' where kode_kompen='$kode_kompen'");
+
+    return mysqli_affected_rows($conn);
+}
+function cancelKalabAll($data)
+{
+    global $conn;
+
+    $kode_kompen = $data['kd'];
+
+    mysqli_query($conn, "update mhs_kompen set v_pengawas='-' where kode_kompen='$kode_kompen'");
+
+    return mysqli_affected_rows($conn);
+}
+
+function validasiKalab($data)
+{
+    global $conn;
+
+    $nim = $data['nimkl'];
+    $kode_kompen = $data['kd'];
+    $keputusan = "";
+
+    if($data['k'] == "1"){
+        $keputusan = "-";
+    }else{
+        $keputusan = "VALID";
+    }
+
+    mysqli_query($conn, "update mhs_kompen set v_pengawas='$keputusan' where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
+
+    return mysqli_affected_rows($conn);
+}
+
+function validasiKaprodi($data)
+{
+    global $conn;
+
+    $nim = $data['nimkpr'];
+    $kode_kompen = $data['kd'];
+    $keputusan = "";
+
+    if($data['k'] == "1"){
+        $keputusan = "-";
+    }else{
+        $keputusan = "VALID";
+    }
+
+    mysqli_query($conn, "update mhs_kompen set v_aprodi='$keputusan' where nim_mhs='$nim' and kode_kompen='$kode_kompen'");
 
     return mysqli_affected_rows($conn);
 }

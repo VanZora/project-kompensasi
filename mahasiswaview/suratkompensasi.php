@@ -86,8 +86,8 @@
         <p>Telah menyelesaikan kompensasi presensi sesuai prosedur dan pedoman akademik Politeknik Negeri Banjarmasin</p>
 
         <?php
-        $validasiP = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and v_pengawas='ACC'");
-        $validasiA = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and v_aprodi='ACC'");
+        $validasiP = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and v_pengawas='VALID'");
+        $validasiA = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and v_aprodi='VALID'");
         $namattd = mysqli_query($conn, "select pengawas.nama from mhs_kompen INNER JOIN pengawas ON mhs_kompen.nik_pengawas = pengawas.nik where nim_mhs='$user'");
         $nama = mysqli_fetch_assoc($namattd);
         ?>

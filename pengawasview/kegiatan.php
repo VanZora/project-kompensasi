@@ -98,7 +98,7 @@ if (isset($_POST["atur"])) {
         $ket = "Validasi Pengawas";
         $valid = "acc";
         $warna = "btn-success";
-        if ($row['v_pengawas'] == "ACC") {
+        if ($row['v_pengawas'] == "VALID") {
             $ket = "Batalkan Validasi";
             $valid = "cancel";
             $warna = "btn-secondary";
@@ -112,9 +112,9 @@ if (isset($_POST["atur"])) {
         <?php
         $data = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$nim' and kode_kompen='$kode_kompen'")
         ?>
-        <div class="d-grid gap-2"">
+        <!-- <div class="d-grid gap-2"">
             <input type="submit" name="<?php echo $valid; ?>" value="<?php echo $ket; ?>" class="btn <?php echo $warna; ?> btn-sm">
-        </div><br>
+        </div><br> -->
         <div class="d-grid gap-2"">
             <input type="submit" name="atur" value="Simpan" class="btn btn-primary btn-sm">
         </div>

@@ -42,7 +42,7 @@ include 'header.php'; ?>
                 $nim = $row['nim'];
                 $kode_kompen2 = $row['kode_kompen'];
                 $data2 = mysqli_query($conn, "select * from mhs_kegiatan where kode_kompen='$kode_kompen2' and nim_mhs='$nim' and tuntas='belum'");
-                $data3 = mysqli_query($conn, "select * from mhs_kompen where kode_kompen='$kode_kompen2' and nim_mhs='$nim' and v_pengawas='ACC'");
+                $data3 = mysqli_query($conn, "select * from mhs_kompen where kode_kompen='$kode_kompen2' and nim_mhs='$nim' and v_pengawas='VALID'");
             ?>
                 <tr>
                     <td><?php echo $row['nim']; ?></td>

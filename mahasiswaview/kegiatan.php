@@ -66,7 +66,7 @@ if (isset($_POST["atur"])) {
                         <p><?php if ($row['tuntas'] == 'ya') {
                                 echo 'Diverifikasi';
                             } else {
-                                echo 'Belom';
+                                echo '-';
                             } ?></p>
                     </td>
                 </tr>

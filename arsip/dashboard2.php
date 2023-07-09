@@ -30,7 +30,7 @@ include "../function.php";
     <?php
     $user = $_SESSION["user"];
 
-    $tuntas = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and v_pengawas='ACC' and v_aprodi='ACC'");
+    $tuntas = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and v_pengawas='VALID' and v_aprodi='VALID'");
     $waktu = mysqli_query($conn, "select * from admin_kompen INNER JOIN mhs_kompen ON admin_kompen.kode_kompen = mhs_kompen.kode_kompen where mhs_kompen.nim_mhs='$user'");
     $tenggat = mysqli_fetch_assoc($waktu);
 
