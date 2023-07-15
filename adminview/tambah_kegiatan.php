@@ -69,9 +69,19 @@ if (isset($_POST["atur"])) {
             </select>
         </div>
         <div class="mb-3">
+            <select name="tempat" class="form-select" aria-label="Default select example" required>
+                <option value="01">Pilih Tempat</option>
+                <?php
+                $data = mysqli_query($conn, "select * from tempat");
+                foreach ($data as $row) { ?>
+                    <option value="<?php echo $row['kode_ruang']; ?>"><?php echo $row['nama']; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <!-- <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tempat</label>
             <input name="tempat" type="text" class="form-control" id="validationDefault01" placeholder="Atur Tempat" required>
-        </div>
+        </div> -->
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Tanggal Mulai</label>
             <input name="tanggal" type="date" class="form-control" id="validationDefault01" required>

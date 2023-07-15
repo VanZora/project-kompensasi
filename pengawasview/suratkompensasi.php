@@ -36,12 +36,9 @@
     include "../function.php";
     session_start();
     $user = $_SESSION["user"];
-    $semester = $_GET['smt'];
+    $nik = $_GET['nik'];
 
-    $data = mysqli_query($conn, "select mahasiswa.nama, admin_kompen.semester, mhs_kompen.jml_jam, mahasiswa.nim, pengawas.nama as namapengawas 
-    from mhs_kompen INNER JOIN mahasiswa ON mhs_kompen.nim_mhs = mahasiswa.nim INNER JOIN pengawas 
-    ON mhs_kompen.nik_pengawas = pengawas.nik INNER JOIN admin_kompen ON mhs_kompen.kode_kompen = admin_kompen.kode_kompen where 
-    mhs_kompen.nim_mhs='$user' and admin_kompen.semester='$semester'");
+    $data = mysqli_query($conn, "select * from pengawas where nik='$nik'");
 
     $data2 = mysqli_query($conn, "select * from mhs_kegiatan where nim_mhs='$user'");
     $row = mysqli_fetch_assoc($data);
@@ -61,7 +58,8 @@
         </table>
         <h4 id=judul>KETERANGAN SELESAI KOMPENSASI</h4>
 
-        <p>Saya yang bertanda tangan di bawah ini :</p>
+        <p>Saya yang bertanda tangan di bawah ini ....</p>
+        <p>Kepada : </p>
 
         <table>
             <tr>
@@ -70,52 +68,15 @@
                 <td style="width: 65%;"><?php echo $row['nama']; ?></td>
             </tr>
             <tr>
-                <td style="width: 30%;">NIM</td>
+                <td style="width: 30%;">NIK</td>
                 <td style="width: 5%;">:</td>
-                <td style="width: 65%;"><?php echo $row['nim']; ?></td>
-            </tr>
-            <tr>
-                <td style="width: 30%; vertical-align: top;">Pengawas</td>
-                <td style="width: 5%; vertical-align: top;">:</td>
-                <td style="width: 65%;"><?php echo $row['namapengawas']; ?></td>
-            </tr>
-            <tr>
-                <td style="width: 30%; vertical-align: top;">Total Durasi Kompensasi</td>
-                <td style="width: 5%; vertical-align: top;">:</td>
-                <td style="width: 65%;"><?php echo $row['jml_jam'] . " Jam"; ?></td>
+                <td style="width: 65%;"><?php echo $row['nik']; ?></td>
             </tr>
         </table>
 
         <br><br>
-        <table class="border">
-            <tr>
-                <th width="100px"; class="border">No</th>
-                <th width="100px"; class="border">Kegiatan</th>
-                <th width="150px"; class="border">Durasi Kegiatan</th>
-            </tr>
 
-            <?php
-            $input = '1';
-            $totaldurasi = '0';
-             while ($rowz = mysqli_fetch_array($data2)) { ?>
-
-            <tr>
-                <td class="border"><?php echo $input; ?></td>
-                <td class="border"><?php echo $rowz['kegiatan']; ?></td>
-                <td class="border"><?php echo $rowz['durasi'] . " Jam"; ?></td>
-            </tr>
-                
-            <?php 
-            $input++;
-            $totaldurasi += $rowz['durasi'];
-            } ?>
-            <tr>
-                <td colspan="2">Total : </td>
-                <td style="text-align: center;"><?php echo $totaldurasi . " Jam"; ?></td>
-            </tr>
-        </table>
-
-        <p>Telah menuntaskan kompensasi presensi sesuai prosedur dan pedoman akademik Politeknik Negeri Banjarmasin.</p>
+        <p>Telah ditugaskan untuk mengawasi kompensasi presensi sesuai prosedur dan pedoman akademik Politeknik Negeri Banjarmasin.</p>
 
         <?php
         $validasiP = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and v_pengawas='VALID'");
@@ -131,20 +92,14 @@
                 <td>Banjarmasin, 20 Januari 2020</td>
             </tr>
             <tr>
-                <td>Tanda tangan pengawas</td>
+                <td></td>
                 <td width="55%"></td>
-                <td>Tanda tangan Kaprodi</td>
+                <td>Tanda tangan Wadir</td>
             </tr>
             <tr>
-                <td><?php if (mysqli_num_rows($validasiP) >= 1) {
-                        echo '<img src="../img/qrsaja.png" alt="">';
-                    } else {
-                    } ?></td>
+                <td><img src="../img/Mantah.png" alt=""></td>
                 <td></td>
-                <td><?php if (mysqli_num_rows($validasiA) >= 1) {
-                        echo '<img src="../img/qrlagi.png" alt="">';
-                    } else {
-                    } ?></td>
+                <td><img src="../img/qrlagi.png" alt=""></td>
             </tr>
             <tr>
             <td><?php if (mysqli_num_rows($validasiP) >= 1) {

@@ -123,7 +123,6 @@ if (isset($_GET["nimkpr"]) && isset($_GET["kd"]) && isset($_GET["k"])) {
         </tr>
 
     </table><br>
-    <a href="" target=" _blank" class="btn btn-primary btn-sm"><i class="bx bxs-printer"></i> Cetak</a><br><br>
     <form action="" method="post">
         <div class="d-grid gap-2">
             <input type="hidden" name="kd" value="<?php echo $rowz['kode_kompen']; ?>">
@@ -159,11 +158,11 @@ if (isset($_GET["nimkpr"]) && isset($_GET["kd"]) && isset($_GET["k"])) {
                 $text1 = "Belum Selesai";
                 if (mysqli_num_rows($data2) >= 1) {
                 } else {
-                    $text1 = "Tuntas";
+                    $text1 = "Selesai";
                 }
 
                 $warna2 = "btn-secondary";
-                $text2 = "(Tervalidasi)";
+                // $text2 = "(Tervalidasi)";
                 $keputusan = "1";
                 if (mysqli_num_rows($data3) >= 1) {
                 } else {
@@ -185,7 +184,7 @@ if (isset($_GET["nimkpr"]) && isset($_GET["kd"]) && isset($_GET["k"])) {
                 <tr>
                     <td><?php echo $row['nama']; ?></td>
                     <td><?php echo $row['jml_jam']; ?></td>
-                    <td><?php echo $text1 . " " . $text2; ?></td>
+                    <td><?php echo $text1; ?></td>
                     <td><a href="?page=progress&kd=<?php echo $row['kode_kompen']; ?>&nimkl=<?php echo $row['nim']; ?>&k=<?php echo $keputusan; ?>" class="btn btn-sm <?php echo $warna2; ?>">Kalab</a>
                         <a href="?page=progress&kd=<?php echo $row['kode_kompen']; ?>&nimkpr=<?php echo $row['nim']; ?>&k=<?php echo $keputusan2; ?>" class="btn btn-sm <?php echo $warna3; ?>">Kaprodi</a>
                     </td>

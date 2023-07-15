@@ -15,7 +15,10 @@ include 'header.php'; ?>
 
     $user = $_SESSION["user"];
     $datax = mysqli_query($conn, "select * from pengawas where nik='$user'");
+    $deteksi = mysqli_query($conn, "select * from tgs_pengawas where nik_pengawas='$user'");
     $row = mysqli_fetch_assoc($datax);
+
+    $nik = $row['nik'];
     ?>
     <div class="row">
         <div class="col">
@@ -36,6 +39,12 @@ include 'header.php'; ?>
         </div>
     </div>
 
+
+    <?php
+    if (mysqli_num_rows($deteksi) >= 1){
+        echo '<a href="suratkompensasi.php?nik='. $nik . '" target=" _blank" class="btn btn-danger btn-sm"><i class="bx bxs-printer"></i> Surat Penugasan Kompensasi</a>';
+    }
+    ?>
     <table id="example" class="table table-striped table-bordered border-light-subtle">
         <thead>
             <tr>
@@ -48,7 +57,6 @@ include 'header.php'; ?>
                 <th>WAKTU</th>
                 <th>PROGRESS</th>
                 <th>AKSI</th>
-                <th>CETAK</th>
             </tr>
         </thead>
 
@@ -73,7 +81,6 @@ include 'header.php'; ?>
                             echo "Selesai";
                         } ?></td>
                     <td><a href="?page=list&kd=<?php echo $row['kode_kompen']; ?>" class="btn btn-warning btn-sm">List Mahasiswa</a></td>
-                    <td><a href="?page=list&kd=<?php echo $row['kode_kompen']; ?>" class="btn btn-danger btn-sm">Cetak</a></td>
                 </tr>
             <?php } ?>
         </tbody>

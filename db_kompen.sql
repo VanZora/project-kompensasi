@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2023 at 04:35 PM
+-- Generation Time: Jul 11, 2023 at 07:06 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -34,7 +34,7 @@ CREATE TABLE `admin_kompen` (
   `kelas` varchar(50) NOT NULL,
   `jml_mhs` int(11) NOT NULL,
   `nik_pengawas` varchar(50) NOT NULL,
-  `tempat` varchar(50) NOT NULL,
+  `kode_ruang` varchar(50) NOT NULL,
   `tanggal` varchar(50) NOT NULL,
   `waktu` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -43,8 +43,8 @@ CREATE TABLE `admin_kompen` (
 -- Dumping data for table `admin_kompen`
 --
 
-INSERT INTO `admin_kompen` (`kode_kompen`, `semester`, `prodi`, `kelas`, `jml_mhs`, `nik_pengawas`, `tempat`, `tanggal`, `waktu`) VALUES
-('07202306041901', 4, 'Teknik Informatika', 'Axioo', 3, 'dimas123', 'Gedung A', '2023-07-04', '2023-07-29');
+INSERT INTO `admin_kompen` (`kode_kompen`, `semester`, `prodi`, `kelas`, `jml_mhs`, `nik_pengawas`, `kode_ruang`, `tanggal`, `waktu`) VALUES
+('07202311053937', 4, 'Teknik Informatika', 'Axioo', 3, 'dimas123', '01', '2023-07-12', '2023-07-27');
 
 -- --------------------------------------------------------
 
@@ -123,16 +123,16 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`nim`, `nama`, `semester`, `kelas`, `jurusan`, `prodi`) VALUES
-('a030321122', 'Abdul Wahid', 4, 'A', 'Teknik Elektro', 'Teknik Listrik'),
-('a030321123', 'Rahmat Ujang', 4, 'A', 'Teknik Elektro', 'Teknik Listrik'),
-('a030321124', 'Ahmad Hamid', 4, 'A', 'Teknik Elektro', 'Teknik Listrik'),
-('b030321120', 'Layla Nur Sabrina', 4, 'B', 'Teknik Elektro', 'Teknik Listrik'),
-('b030321129', 'Rina Fardina', 4, 'B', 'Teknik Elektro', 'Teknik Listrik'),
+('a030321122', 'Abdul Wahid', 4, 'A', 'Teknik Elektro', 'Teknik Informatika'),
+('a030321123', 'Rahmat Ujang', 4, 'A', 'Teknik Elektro', 'Teknik Informatika'),
+('a030321124', 'Ahmad Hamid', 4, 'A', 'Teknik Elektro', 'Teknik Informatika'),
+('b030321120', 'Layla Nur Sabrina', 4, 'B', 'Teknik Elektro', 'Teknik Informatika'),
+('b030321129', 'Rina Fardina', 4, 'B', 'Teknik Elektro', 'Teknik Informatika'),
 ('c030321120', 'Muhammad Abbas', 2, 'C', 'Teknik Elektro', 'Teknik Informatika'),
 ('c030321124', 'Saman Habib', 2, 'C', 'Teknik Elektro', 'Teknik Informatika'),
-('d030321111', 'Raiden Shogun', 4, 'D', 'Teknik Elektro', 'Teknik Listrik'),
-('d030321112', 'Farhan', 4, 'D', 'Teknik Elektro', 'Teknik Listrik'),
-('d030321119', 'Alghi', 4, 'D', 'Teknik Elektro', 'Teknik Listrik'),
+('d030321111', 'Raiden Shogun', 4, 'D', 'Teknik Elektro', 'Teknik Informatika'),
+('d030321112', 'Farhan', 4, 'D', 'Teknik Elektro', 'Teknik Informatika'),
+('d030321119', 'Alghi', 4, 'D', 'Teknik Elektro', 'Teknik Informatika'),
 ('z030321110', 'Eula', 4, 'Axioo', 'Teknik Elektro', 'Teknik Informatika'),
 ('z030321111', 'Jingyuan', 4, 'Axioo', 'Teknik Elektro', 'Teknik Informatika'),
 ('z030321124', 'Ahmad Fadli', 4, 'Axioo', 'Teknik Elektro', 'Teknik Informatika'),
@@ -182,9 +182,10 @@ CREATE TABLE `mhs_kegiatan` (
 --
 
 INSERT INTO `mhs_kegiatan` (`id`, `nim_mhs`, `kode_kompen`, `kegiatan`, `durasi`, `tuntas`) VALUES
-(178, 'z030321124', '07202306041901', 'Menyapu lantai2\r\n', 24, 'belum'),
-(179, 'z030321110', '07202306041901', '-', 0, 'belum'),
-(180, 'z030321125', '07202306041901', '-', 0, 'belum');
+(222, 'z030321124', '07202311053937', 'Menyapu', 24, 'ya'),
+(223, 'z030321110', '07202311053937', '-', 0, 'belum'),
+(224, 'z030321125', '07202311053937', '-', 0, 'belum'),
+(225, 'z030321124', '07202311053937', 'ASSASA', 32, 'ya');
 
 -- --------------------------------------------------------
 
@@ -207,9 +208,9 @@ CREATE TABLE `mhs_kompen` (
 --
 
 INSERT INTO `mhs_kompen` (`id`, `kode_kompen`, `nim_mhs`, `jml_jam`, `nik_pengawas`, `v_pengawas`, `v_aprodi`) VALUES
-(99, '07202306041901', 'z030321124', 56, 'dimas123', '-', '-'),
-(100, '07202306041901', 'z030321110', 8, 'dimas123', '-', '-'),
-(101, '07202306041901', 'z030321125', 8, 'dimas123', '-', '-');
+(119, '07202311053937', 'z030321124', 56, 'dimas123', '-', '-'),
+(120, '07202311053937', 'z030321110', 8, 'dimas123', '-', '-'),
+(121, '07202311053937', 'z030321125', 8, 'dimas123', '-', '-');
 
 -- --------------------------------------------------------
 
@@ -231,6 +232,27 @@ INSERT INTO `pengawas` (`nik`, `nama`, `jurusan`) VALUES
 ('dimas123', 'Dimas', 'Teknik Informatika'),
 ('jamet123', 'Jametz', 'Teknik Informatika'),
 ('udin123', 'Udin', 'Teknik Informatika');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tempat`
+--
+
+CREATE TABLE `tempat` (
+  `kode_ruang` varchar(50) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `kalab` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tempat`
+--
+
+INSERT INTO `tempat` (`kode_ruang`, `nama`, `kalab`) VALUES
+('01', 'Ruang RPL', 'Rio'),
+('02', 'Ruang Multimedia', 'Dirsa'),
+('03', 'Ruang UPT 1', 'Fuadi');
 
 -- --------------------------------------------------------
 
@@ -257,7 +279,7 @@ CREATE TABLE `tgs_pengawas` (
 --
 
 INSERT INTO `tgs_pengawas` (`id`, `kode_kompen`, `nik_pengawas`, `semester`, `prodi`, `kelas`, `jml_mhs`, `tempat`, `tanggal`, `waktu`, `progress`) VALUES
-(72, '07202306041901', 'dimas123', 4, 'Teknik Informatika', 'Axioo', 3, 'Gedung A', '2023-07-04', 'Gedung A', 'OTW');
+(84, '07202311053937', 'dimas123', 4, 'Teknik Informatika', 'Axioo', 3, '01', '2023-07-12', '01', 'OTW');
 
 -- --------------------------------------------------------
 
@@ -299,7 +321,8 @@ INSERT INTO `users` (`id`, `username`, `password`, `passuser`, `role`) VALUES
 --
 ALTER TABLE `admin_kompen`
   ADD PRIMARY KEY (`kode_kompen`),
-  ADD KEY `pengawas` (`nik_pengawas`);
+  ADD KEY `pengawas` (`nik_pengawas`),
+  ADD KEY `kode_ruang` (`kode_ruang`);
 
 --
 -- Indexes for table `admin_valid`
@@ -353,6 +376,12 @@ ALTER TABLE `pengawas`
   ADD PRIMARY KEY (`nik`);
 
 --
+-- Indexes for table `tempat`
+--
+ALTER TABLE `tempat`
+  ADD PRIMARY KEY (`kode_ruang`);
+
+--
 -- Indexes for table `tgs_pengawas`
 --
 ALTER TABLE `tgs_pengawas`
@@ -387,19 +416,19 @@ ALTER TABLE `logabsen`
 -- AUTO_INCREMENT for table `mhs_kegiatan`
 --
 ALTER TABLE `mhs_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
 
 --
 -- AUTO_INCREMENT for table `mhs_kompen`
 --
 ALTER TABLE `mhs_kompen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT for table `tgs_pengawas`
 --
 ALTER TABLE `tgs_pengawas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -415,7 +444,8 @@ ALTER TABLE `users`
 -- Constraints for table `admin_kompen`
 --
 ALTER TABLE `admin_kompen`
-  ADD CONSTRAINT `admin_kompen_ibfk_1` FOREIGN KEY (`nik_pengawas`) REFERENCES `pengawas` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `admin_kompen_ibfk_1` FOREIGN KEY (`nik_pengawas`) REFERENCES `pengawas` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `admin_kompen_ibfk_2` FOREIGN KEY (`kode_ruang`) REFERENCES `tempat` (`kode_ruang`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `logabsen`

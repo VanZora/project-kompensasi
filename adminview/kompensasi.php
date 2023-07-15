@@ -5,7 +5,17 @@ require '../function.php';
 if (isset($_GET["kd"])) {
 
     if (deleteKompen($_GET) > 0)
-        header("location:?page=kompensasi");
+    echo "<script>
+        Swal.fire(
+            'Berhasil!',
+            'Kegiatan telah dihapus!',
+            'success'
+        ).then((result) => {
+            if (result.isConfirmed) {
+                window.location='?page=kompensasi';
+            }
+        })
+        </script>";
     else
         echo mysqli_error($conn);
 }
@@ -31,11 +41,11 @@ if (isset($_GET["kd"])) {
             <tr>
                 <th>KODE KOMPENSASI</th>
                 <th>SEMESTER</th>
-                <th>PRODI</th>
                 <th>KELAS</th>
                 <th>JUMLAH MAHASISWA</th>
                 <th>PENGAWAS</th>
                 <th>TEMPAT</th>
+                <th>KETUA LAB</th>
                 <th>TANGGAL</th>
                 <th>Progress</th>
                 <th>AKSI</th>
@@ -44,7 +54,7 @@ if (isset($_GET["kd"])) {
 
         <tbody>
             <?php
-            $data = mysqli_query($conn, "select kode_kompen, prodi, semester, kelas, jml_mhs, pengawas.nama, tempat, tanggal, waktu from admin_kompen INNER JOIN pengawas ON admin_kompen.nik_pengawas = pengawas.nik");
+            $data = mysqli_query($conn, "select kode_kompen, prodi, semester, kelas, jml_mhs, pengawas.nama, tempat.nama as namatempat, tempat.kalab, tanggal, waktu from admin_kompen INNER JOIN pengawas ON admin_kompen.nik_pengawas = pengawas.nik INNER JOIN tempat ON admin_kompen.kode_ruang = tempat.kode_ruang");
 
             while ($row = mysqli_fetch_array($data)) {
 
@@ -55,11 +65,11 @@ if (isset($_GET["kd"])) {
                 <tr>
                     <td><?php echo $row['kode_kompen']; ?></td>
                     <td><?php echo $row['semester']; ?></td>
-                    <td><?php echo $row['prodi']; ?></td>
                     <td><?php echo $row['kelas']; ?></td>
                     <td><?php echo $row['jml_mhs']; ?></td>
                     <td><?php echo $row['nama']; ?></td>
-                    <td><?php echo $row['tempat']; ?></td>
+                    <td><?php echo $row['namatempat']; ?></td>
+                    <td><?php echo $row['kalab']; ?></td>
                     <td><?php echo $row['tanggal']; ?></td>
                     <td><a href="?page=progress&kd=<?php echo $row['kode_kompen']; ?>"><?php if (mysqli_num_rows($data2) >= 1) {
                                                                                             echo "Belum Selesai";

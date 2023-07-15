@@ -42,7 +42,6 @@ include 'header.php'; ?>
                 $nim = $row['nim'];
                 $kode_kompen2 = $row['kode_kompen'];
                 $data2 = mysqli_query($conn, "select * from mhs_kegiatan where kode_kompen='$kode_kompen2' and nim_mhs='$nim' and tuntas='belum'");
-                $data3 = mysqli_query($conn, "select * from mhs_kompen where kode_kompen='$kode_kompen2' and nim_mhs='$nim' and v_pengawas='VALID'");
             ?>
                 <tr>
                     <td><?php echo $row['nim']; ?></td>
@@ -51,13 +50,8 @@ include 'header.php'; ?>
                     <td><a href="?page=kegiatan&kd=<?php echo $row['kode_kompen']; ?>&nim=<?php echo $nim; ?>"><?php if (mysqli_num_rows($data2) >= 1) {
                                                                                                                     echo "Belum Selesai";
                                                                                                                 } else {
-                                                                                                                    echo "Tuntas";
+                                                                                                                    echo "Selesai";
                                                                                                                 } ?></a>
-                        <?php if (mysqli_num_rows($data3) >= 1) {
-                            echo " (Tervalidasi)";
-                        } else {
-                            echo "";
-                        } ?>
                     </td>
                 </tr>
             <?php } ?>

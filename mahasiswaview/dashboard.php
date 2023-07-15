@@ -27,15 +27,16 @@ include "../function.php";
     <?php
     $user = $_SESSION["user"];
 
-    $tuntas = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and (v_pengawas='-' or v_aprodi='-')");
+    $tuntas = mysqli_query($conn, "select * from mhs_kompen where nim_mhs='$user' and (v_pengawas='VALID' and v_aprodi='VALID')");
     $waktu = mysqli_query($conn, "select * from admin_kompen INNER JOIN mhs_kompen ON admin_kompen.kode_kompen = mhs_kompen.kode_kompen where mhs_kompen.nim_mhs='$user'");
     $tenggat = mysqli_fetch_assoc($waktu);
 
     if (mysqli_num_rows($tuntas) == 1) {
+        
+    } else if (mysqli_num_rows($waktu) == 1){
         echo '<div class="alert alert-danger">
         <strong>Kompensasi belum tuntas !</strong> kamu harus menyelesaikan kompensasi sebelum tanggal ' . $tenggat['waktu'] . '  <a style="text-decoration:underline ;" href="?page=kompensasi" class="alert-link">Klik disini !</a>.
         </div>';
-    } else {
     }
     ?>
 
@@ -97,7 +98,7 @@ include "../function.php";
 
     <!-- Widget alfa -->
     <a href="?page=detail&id=<?php echo $row['nim']; ?>&smt=<?php echo $semester; ?>" class="btn btn-warning btn-sm">Detail</a>
-    <br><br>
+    <p>Semester : <?php echo $semester; ?></p>
     <div class="row">
         <div class="col">
             <div class="card text-white bg-danger mb-3" style="max-width: 25rem;">

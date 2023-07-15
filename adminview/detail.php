@@ -11,7 +11,7 @@ include 'header.php'; ?>
 
 <body>
 <button class="btn btn-outline-secondary btn-sm" onclick="history.back()"><i class='bx bx-arrow-back' ></i></button><br><br>
-    <form id="inputan" action="" method="post">
+    <!-- <form id="inputan" action="" method="post">
         <select name="semester" id="semester" onchange="submitForm()" class="form-select form-select-sm">
             <option selected values="">Pilih semester</option>
             <option value="1">Semester 1</option>
@@ -19,7 +19,7 @@ include 'header.php'; ?>
             <option value="3">Semester 3</option>
             <option value="4">Semester 4</option>
         </select>
-    </form>
+    </form> -->
 
     <?php
     include "../function.php";
@@ -31,6 +31,7 @@ include 'header.php'; ?>
     $row = mysqli_fetch_assoc($data);
 
     $nim = $row['nim'];
+    $smt = $row['semester'];
 
     if (isset($_POST['semester'])) {
         $semester = $_POST['semester'];
@@ -38,9 +39,10 @@ include 'header.php'; ?>
         $data3 = mysqli_query($conn, "select count(ket) as izin from logabsen where ket='Izin' and nim_mhs='$nim' and semester='$semester'");
         $data4 = mysqli_query($conn, "select count(ket) as sakit from logabsen where ket='Sakit' and nim_mhs='$nim' and semester='$semester'");
     } else {
-        $data2 = mysqli_query($conn, "select count(ket) as alfa from logabsen where ket='Alfa' and nim_mhs='$nim'");
-        $data3 = mysqli_query($conn, "select count(ket) as izin from logabsen where ket='Izin' and nim_mhs='$nim'");
-        $data4 = mysqli_query($conn, "select count(ket) as sakit from logabsen where ket='Sakit' and nim_mhs='$nim'");
+        $semester = $smt;
+        $data2 = mysqli_query($conn, "select count(ket) as alfa from logabsen where ket='Alfa' and nim_mhs='$nim' and semester='$semester'");
+        $data3 = mysqli_query($conn, "select count(ket) as izin from logabsen where ket='Izin' and nim_mhs='$nim' and semester='$semester'");
+        $data4 = mysqli_query($conn, "select count(ket) as sakit from logabsen where ket='Sakit' and nim_mhs='$nim' and semester='$semester'");
     }
 
     $izin = mysqli_fetch_assoc($data3);
