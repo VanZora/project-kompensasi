@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2023 at 07:06 AM
+-- Generation Time: Jul 17, 2023 at 07:12 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -44,7 +44,7 @@ CREATE TABLE `admin_kompen` (
 --
 
 INSERT INTO `admin_kompen` (`kode_kompen`, `semester`, `prodi`, `kelas`, `jml_mhs`, `nik_pengawas`, `kode_ruang`, `tanggal`, `waktu`) VALUES
-('07202311053937', 4, 'Teknik Informatika', 'Axioo', 3, 'dimas123', '01', '2023-07-12', '2023-07-27');
+('07202315085127', 4, 'Teknik Informatika', 'Axioo', 3, 'dimas123', '02', '2023-07-12', '2023-07-26');
 
 -- --------------------------------------------------------
 
@@ -182,10 +182,10 @@ CREATE TABLE `mhs_kegiatan` (
 --
 
 INSERT INTO `mhs_kegiatan` (`id`, `nim_mhs`, `kode_kompen`, `kegiatan`, `durasi`, `tuntas`) VALUES
-(222, 'z030321124', '07202311053937', 'Menyapu', 24, 'ya'),
-(223, 'z030321110', '07202311053937', '-', 0, 'belum'),
-(224, 'z030321125', '07202311053937', '-', 0, 'belum'),
-(225, 'z030321124', '07202311053937', 'ASSASA', 32, 'ya');
+(236, 'z030321124', '07202315085127', 'Menyapu', 10, 'ya'),
+(237, 'z030321110', '07202315085127', '', 0, 'belum'),
+(238, 'z030321125', '07202315085127', '', 0, 'belum'),
+(240, 'z030321124', '07202315085127', 'Bersih gudang', 30, 'belum');
 
 -- --------------------------------------------------------
 
@@ -208,9 +208,9 @@ CREATE TABLE `mhs_kompen` (
 --
 
 INSERT INTO `mhs_kompen` (`id`, `kode_kompen`, `nim_mhs`, `jml_jam`, `nik_pengawas`, `v_pengawas`, `v_aprodi`) VALUES
-(119, '07202311053937', 'z030321124', 56, 'dimas123', '-', '-'),
-(120, '07202311053937', 'z030321110', 8, 'dimas123', '-', '-'),
-(121, '07202311053937', 'z030321125', 8, 'dimas123', '-', '-');
+(128, '07202315085127', 'z030321124', 56, 'dimas123', '-', '-'),
+(129, '07202315085127', 'z030321110', 8, 'dimas123', '-', '-'),
+(130, '07202315085127', 'z030321125', 8, 'dimas123', '-', '-');
 
 -- --------------------------------------------------------
 
@@ -279,7 +279,7 @@ CREATE TABLE `tgs_pengawas` (
 --
 
 INSERT INTO `tgs_pengawas` (`id`, `kode_kompen`, `nik_pengawas`, `semester`, `prodi`, `kelas`, `jml_mhs`, `tempat`, `tanggal`, `waktu`, `progress`) VALUES
-(84, '07202311053937', 'dimas123', 4, 'Teknik Informatika', 'Axioo', 3, '01', '2023-07-12', '01', 'OTW');
+(89, '07202315085127', 'dimas123', 4, 'Teknik Informatika', 'Axioo', 3, '02', '2023-07-12', '02', 'OTW');
 
 -- --------------------------------------------------------
 
@@ -304,7 +304,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `passuser`, `role`) VALUES
 (20, 'd030321119', '$2y$10$raYrgUinvXoxCCiDCZoVpe.SO7QnTsWMSOOOyTb6tyFKayB8lAcHu', 'admin', 'mahasiswa'),
 (21, 'z030321110', '$2y$10$vDAr5EzB1n41xmhDKlnN9uZfwVoWBnAYhoGmbkWPhEv.WWtVTXa7.', 'admin', 'mahasiswa'),
 (22, 'z030321111', '$2y$10$FCpXt/Vp.K.WHrerqDb2i.QuPhtCoJawOSN3KWJFf9ZVf1mLFphnO', 'admin', 'mahasiswa'),
-(23, 'z030321124', '$2y$10$GJ7wrn0jfylyjESDS43uAe/Yh6HLRiVuvwc1U0sh68bXZLOUARea6', 'admin', 'mahasiswa'),
+(23, 'z030321124', '$2y$10$uX7maz9s3k0EyEHa0PU2HO.eEp2vCPSIJn9/1i.pGkgkqgAE.gihu', 'admin', 'mahasiswa'),
 (24, 'z030321125', '$2y$10$iKi3bOPxX.fGBmDzzTqwtuUNrvCDhQiwdAlWHtMPysEXBNvyh7AEm', 'admin', 'mahasiswa'),
 (25, 'dimas123', '$2y$10$XUy.16uosXWxEwctsrnNuuyXVU7j9Ut9sP5.jx.rZzW5UIoqbQyIO', 'admin', 'pengawas'),
 (26, 'admin', '$2y$10$Gvj5Ae0T4igFVFlUtMpNPOGCo2/qDnz9NauZuawo137Vp/d6tImzq', '-', 'admin'),
@@ -416,19 +416,19 @@ ALTER TABLE `logabsen`
 -- AUTO_INCREMENT for table `mhs_kegiatan`
 --
 ALTER TABLE `mhs_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
 -- AUTO_INCREMENT for table `mhs_kompen`
 --
 ALTER TABLE `mhs_kompen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `tgs_pengawas`
 --
 ALTER TABLE `tgs_pengawas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `users`
