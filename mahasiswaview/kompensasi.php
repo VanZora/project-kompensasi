@@ -29,15 +29,17 @@ include 'header.php'; ?>
 
     if (isset($_POST['semester'])) {
         $semester = $_POST['semester'];
-        $data = mysqli_query($conn, "select mhs_kompen.kode_kompen as kd_mahasiswa, admin_kompen.semester, jml_jam, pengawas.nama, v_pengawas, v_aprodi from 
-            mhs_kompen INNER JOIN pengawas ON mhs_kompen.nik_pengawas = pengawas.nik 
-            INNER JOIN admin_kompen ON mhs_kompen.kode_kompen = admin_kompen.kode_kompen where nim_mhs='$user' and admin_kompen.semester='$semester'");
+        $data = mysqli_query($conn, "select mhs_kompen.kode_kompen as kd_mahasiswa, admin_kompen.semester, tempat.nama as tempat, jml_jam, pengawas.nama, v_pengawas, v_aprodi from 
+            mhs_kompen INNER JOIN pengawas ON mhs_kompen.nik_pengawas = pengawas.nik
+            INNER JOIN admin_kompen ON mhs_kompen.kode_kompen = admin_kompen.kode_kompen 
+            INNER JOIN tempat ON admin_kompen.kode_ruang = tempat.kode_ruang where nim_mhs='$user' and admin_kompen.semester='$semester'");
     } else {
         $semester = $target['semester'];
-        $data = mysqli_query($conn, "select mhs_kompen.kode_kompen as kd_mahasiswa, admin_kompen.semester, jml_jam, pengawas.nama, v_pengawas, v_aprodi from 
+        $data = mysqli_query($conn, "select mhs_kompen.kode_kompen as kd_mahasiswa, admin_kompen.semester, tempat.nama as tempat, jml_jam, pengawas.nama, v_pengawas, v_aprodi from 
             mhs_kompen INNER JOIN pengawas ON mhs_kompen.nik_pengawas = pengawas.nik 
             INNER JOIN admin_kompen ON mhs_kompen.kode_kompen = admin_kompen.kode_kompen
-            INNER JOIN mahasiswa ON mhs_kompen.nim_mhs = mahasiswa.nim where nim_mhs='$user' and admin_kompen.semester = mahasiswa.semester");
+            INNER JOIN mahasiswa ON mhs_kompen.nim_mhs = mahasiswa.nim 
+            INNER JOIN tempat ON admin_kompen.kode_ruang = tempat.kode_ruang where nim_mhs='$user' and admin_kompen.semester = mahasiswa.semester");
     } ?>
 
     <?php
@@ -53,6 +55,7 @@ include 'header.php'; ?>
             <td>SEMESTER</td>
             <td>DURASI KOMPENSASI</td>
             <td>PENGAWAS</td>
+            <td>TEMPAT</td>
             <td>PROGRESS</td>
             <td>VALIDASI PENGAWAS</td>
             <td>VALIDASI ADMIN PRODI</td>
@@ -68,6 +71,7 @@ include 'header.php'; ?>
                 <td><?php echo $row['semester']; ?></td>
                 <td><?php echo $row['jml_jam']; ?> Jam</td>
                 <td><?php echo $row['nama']; ?></td>
+                <td><?php echo $row['tempat']; ?></td>
                 <td><a href="?page=kegiatan&kd=<?php echo $row['kd_mahasiswa']; ?>&usr=<?php echo $user; ?>"><?php if (mysqli_num_rows($data2) >= 1) {
                                                                                                                     echo "Belum Selesai";
                                                                                                                 } else {

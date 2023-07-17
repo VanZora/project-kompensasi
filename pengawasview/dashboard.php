@@ -42,7 +42,7 @@ include 'header.php'; ?>
 
     <?php
     if (mysqli_num_rows($deteksi) >= 1){
-        echo '<a href="suratkompensasi.php?nik='. $nik . '" target=" _blank" class="btn btn-danger btn-sm"><i class="bx bxs-printer"></i> Surat Penugasan Kompensasi</a>';
+        echo '<a href="suratkompensasi.php?nik='. $nik . '" target=" _blank" class="btn btn-danger btn-sm"><i class="bx bxs-printer"></i> Surat Penugasan Kompensasi</a><br><br>';
     }
     ?>
     <table id="example" class="table table-striped table-bordered border-light-subtle">
@@ -63,7 +63,8 @@ include 'header.php'; ?>
         <tbody>
             <?php
             
-            $data = mysqli_query($conn, "select * from tgs_pengawas where nik_pengawas='$user'");
+            $data = mysqli_query($conn, "select tgs_pengawas.*, tempat.nama as tempatx from tgs_pengawas INNER JOIN admin_kompen ON admin_kompen.kode_kompen = tgs_pengawas.kode_kompen
+            INNER JOIN tempat ON admin_kompen.kode_ruang = tempat.kode_ruang where tgs_pengawas.nik_pengawas='$user'");
             $tuntas = mysqli_query($conn, "select * from mhs_kompen where nik_pengawas='$user' and v_pengawas='-'");
 
             while ($row = mysqli_fetch_array($data)) { ?>
@@ -72,7 +73,7 @@ include 'header.php'; ?>
                     <td><?php echo $row['semester']; ?></td>
                     <td><?php echo $row['kelas']; ?></td>
                     <td><?php echo $row['jml_mhs']; ?></td>
-                    <td><?php echo $row['tempat']; ?></td>
+                    <td><?php echo $row['tempatx']; ?></td>
                     <td><?php echo $row['tanggal']; ?></td>
                     <td><?php echo $row['waktu']; ?></td>
                     <td><?php if (mysqli_num_rows($tuntas) >= 1) {
