@@ -55,9 +55,10 @@ if (isset($_POST["login"])) {
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 
   <style>
-    body{
+    body {
       background-color: #CFE5F1;
     }
+
     .main-content {
       width: 50%;
       border-radius: 20px;
@@ -192,21 +193,19 @@ if (isset($_POST["login"])) {
                   <!-- <span class="fa fa-lock"></span> -->
                   <input type="password" name="password" id="password" class="form__input" placeholder="Password">
                 </div>
+                <div class="row">
+                  <p style="text-align: right;"><a href="lupapassword/konfirmasi.php">Lupa password?</a></p>
+                </div>
                 <?php if (isset($error)) : ?>
                   <p style="color: red;">Username / password salah</p>
                 <?php endif; ?>
-                <div class="row">
-                  <input type="checkbox" name="remember_me" id="remember_me" class="">
-                  <label for="remember_me">Remember Me!</label>
-                </div>
+                <br><br><br>
                 <div class="row">
                   <input type="submit" value="Masuk" class="btn" name="login">
                 </div>
               </form>
             </div>
-            <div class="row">
-               <p><a href="#">Lupa password?</a></p>
-            </div>
+
           </div>
         </div>
       </div>

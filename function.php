@@ -36,6 +36,28 @@ function registrasi($data)
     return mysqli_affected_rows($conn);
 }
 
+function gantiPassword($data)
+{
+    global $conn;
+
+    $username = $data['username'];
+    $password = $data['password'];
+    $password2 = $data['password2'];
+
+    if ($password != $password2) {
+        echo "<script>
+                alert('konfirmasi password tidak sesuai!')
+                </script>";
+        return false;
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    mysqli_query($conn, "update users set password='$password' where username='$username'");
+
+    return mysqli_affected_rows($conn);
+}
+
+
 function kehadiran($data)
 {
     global $conn;
