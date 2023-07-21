@@ -88,7 +88,7 @@ function atur_kegiatan($data)
     $waktu = $data['waktu'];
 
     $kode = date("mYdhis");
-    mysqli_query($conn, "insert into admin_kompen values('$kode', '$semester', '$prodi','$kelas', '$jml_mhs', '$pengawas','$tempat','$tanggal','$waktu')");
+    mysqli_query($conn, "insert into admin_kompen values('$kode', '$semester', '2022 - 2023 Genap', '$prodi', '$kelas', '$jml_mhs', '$pengawas','$tempat','$tanggal','$waktu')");
     mysqli_query($conn, "insert into tgs_pengawas values('', '$kode', '$pengawas', '$semester', '$prodi', '$kelas', '$jml_mhs','$tempat','$tanggal','$tempat', 'OTW')");
 
     $data = mysqli_query($conn, "select distinct mahasiswa.kelas, mahasiswa.prodi, mahasiswa.semester, 

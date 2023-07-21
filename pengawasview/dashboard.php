@@ -39,10 +39,24 @@ include 'header.php'; ?>
         </div>
     </div>
 
+    <form id="inputan" action="" method="post">
+        <select name="periode" id="periode" class="form-select form-select-sm" onchange="submitForm()">
+            <?php if (isset($_POST['periode'])) {
+                $periode = $_POST['periode'];
+                echo '<option selected values=""> Tahun Ajaran ' . $periode . '</option>';
+            } else {
+                '<option selected values="">Periode</option>';
+            } ?>
 
+            <option value="2022 - 2023 Genap">Tahun Ajaran 2022 - 2023 Genap</option>
+            <option value="2022 - 2023 Ganjil">Tahun Ajaran 2022 - 2023 Ganjil</option>
+            <option value="2021 - 2022 Genap">Tahun Ajaran 2021 - 2022 Genap</option>
+            <option value="2021 - 2022 Ganjil">Tahun Ajaran 2021 - 2022 Ganjil</option>
+        </select>
+    </form>
     <?php
-    if (mysqli_num_rows($deteksi) >= 1){
-        echo '<a href="suratkompensasi.php?nik='. $nik . '" target=" _blank" class="btn btn-danger btn-sm"><i class="bx bxs-printer"></i> Surat Penugasan Kompensasi</a><br><br>';
+    if (mysqli_num_rows($deteksi) >= 1) {
+        echo '<a href="suratkompensasi.php?nik=' . $nik . '" target=" _blank" class="btn btn-danger btn-sm"><i class="bx bxs-printer"></i> Surat Penugasan Kompensasi</a><br><br>';
     }
     ?>
     <table id="example" class="table table-striped table-bordered border-light-subtle">
@@ -62,9 +76,15 @@ include 'header.php'; ?>
 
         <tbody>
             <?php
+            if (isset($_POST['periode'])) {
+                $periode = $_POST['periode'];
+                $data = mysqli_query($conn, "select tgs_pengawas.*, tempat.nama as tempatx from tgs_pengawas INNER JOIN admin_kompen ON admin_kompen.kode_kompen = tgs_pengawas.kode_kompen
+                INNER JOIN tempat ON admin_kompen.kode_ruang = tempat.kode_ruang where tgs_pengawas.nik_pengawas='$user' and admin_kompen.periode='$periode'");
+            } else {
+                $data = mysqli_query($conn, "select tgs_pengawas.*, tempat.nama as tempatx from tgs_pengawas INNER JOIN admin_kompen ON admin_kompen.kode_kompen = tgs_pengawas.kode_kompen
+                INNER JOIN tempat ON admin_kompen.kode_ruang = tempat.kode_ruang where tgs_pengawas.nik_pengawas='$user' and admin_kompen.periode='2022 - 2023 Genap'");
+            }
             
-            $data = mysqli_query($conn, "select tgs_pengawas.*, tempat.nama as tempatx from tgs_pengawas INNER JOIN admin_kompen ON admin_kompen.kode_kompen = tgs_pengawas.kode_kompen
-            INNER JOIN tempat ON admin_kompen.kode_ruang = tempat.kode_ruang where tgs_pengawas.nik_pengawas='$user'");
             $tuntas = mysqli_query($conn, "select * from mhs_kompen where nik_pengawas='$user' and v_pengawas='-'");
 
             while ($row = mysqli_fetch_array($data)) { ?>
@@ -86,6 +106,7 @@ include 'header.php'; ?>
             <?php } ?>
         </tbody>
     </table>
+
 </body>
 
 </html>

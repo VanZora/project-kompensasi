@@ -26,7 +26,7 @@ include 'header.php'; ?>
             <td>
                 <blockquote class="quote-orange mt-0 bayangan">
                     <h5 id="tip">Tahun Ajaran </h5>
-                    <p>2022 - 2023 </p>
+                    <p>2022 - 2023 Genap</p>
                 </blockquote>
             </td>
         </div>

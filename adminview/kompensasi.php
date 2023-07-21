@@ -5,7 +5,7 @@ require '../function.php';
 if (isset($_GET["kd"])) {
 
     if (deleteKompen($_GET) > 0)
-    echo "<script>
+        echo "<script>
         Swal.fire(
             'Berhasil!',
             'Kegiatan telah dihapus!',
@@ -35,6 +35,21 @@ if (isset($_GET["kd"])) {
     <div class="d-grid gap-2">
         <a href="?page=set_kegiatan" class="btn btn-outline-secondary btn-sm">Tambahkan Kegiatan</a>
     </div><br>
+    <form id="inputan" action="" method="post">
+        <select name="periode" id="periode" class="form-select form-select-sm" onchange="submitForm()">
+            <?php if (isset($_POST['periode'])) {
+                $periode = $_POST['periode'];
+                echo '<option selected values=""> Tahun Ajaran ' . $periode . '</option>';
+            } else {
+                '<option selected values="">Periode</option>';
+            } ?>
+
+            <option value="2022 - 2023 Genap">Tahun Ajaran 2022 - 2023 Genap</option>
+            <option value="2022 - 2023 Ganjil">Tahun Ajaran 2022 - 2023 Ganjil</option>
+            <option value="2021 - 2022 Genap">Tahun Ajaran 2021 - 2022 Genap</option>
+            <option value="2021 - 2022 Ganjil">Tahun Ajaran 2021 - 2022 Ganjil</option>
+        </select>
+    </form>
 
     <table id="example" class="table table-striped table-bordered border-light-subtle table-sm">
         <thead>
@@ -54,7 +69,21 @@ if (isset($_GET["kd"])) {
 
         <tbody>
             <?php
-            $data = mysqli_query($conn, "select kode_kompen, prodi, semester, kelas, jml_mhs, pengawas.nama, tempat.nama as namatempat, tempat.kalab, tanggal, waktu from admin_kompen INNER JOIN pengawas ON admin_kompen.nik_pengawas = pengawas.nik INNER JOIN tempat ON admin_kompen.kode_ruang = tempat.kode_ruang");
+
+            if (isset($_POST['periode'])) {
+                $periode = $_POST['periode'];
+                $data = mysqli_query($conn, "select kode_kompen, prodi, semester, kelas, jml_mhs, pengawas.nama, 
+                tempat.nama as namatempat, tempat.kalab, tanggal, waktu from admin_kompen 
+                INNER JOIN pengawas ON admin_kompen.nik_pengawas = pengawas.nik 
+                INNER JOIN tempat ON admin_kompen.kode_ruang = tempat.kode_ruang where periode = '$periode'");
+            } else {
+                $data = mysqli_query($conn, "select kode_kompen, prodi, semester, kelas, jml_mhs, pengawas.nama, 
+                tempat.nama as namatempat, tempat.kalab, tanggal, waktu from admin_kompen 
+                INNER JOIN pengawas ON admin_kompen.nik_pengawas = pengawas.nik 
+                INNER JOIN tempat ON admin_kompen.kode_ruang = tempat.kode_ruang where periode = '2022 - 2023 Genap'");
+            }
+
+
 
             while ($row = mysqli_fetch_array($data)) {
 
