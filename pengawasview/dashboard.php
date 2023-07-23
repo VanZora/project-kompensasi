@@ -97,7 +97,7 @@ include 'header.php'; ?>
                     <td><?php echo $row['tanggal']; ?></td>
                     <td><?php echo $row['waktu']; ?></td>
                     <td><?php if (mysqli_num_rows($tuntas) >= 1) {
-                            echo "OTW";
+                            echo "Belum selesai";
                         } else {
                             echo "Selesai";
                         } ?></td>

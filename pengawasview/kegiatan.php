@@ -54,7 +54,7 @@ if (isset($_POST["atur"])) {
 </head>
 
 <body>
-    <button class="btn btn-outline-secondary btn-sm" onclick="history.back()"><i class='bx bx-arrow-back'></i></button><br><br>
+    <button class="btn btn-outline-secondary btn-sm" onclick="location.href='?page=dashboard';"><i class='bx bx-arrow-back'></i></button><br><br>
     <form action="" method="post">
         <?php
         $nim = $_GET['nim'];
