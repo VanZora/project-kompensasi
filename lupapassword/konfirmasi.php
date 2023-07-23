@@ -81,7 +81,7 @@ if (isset($_POST["konfirmasi"])) {
                 <p style="color: red; text-align:center;">Username tidak terdaftar</p>
             <?php endif; ?><br><br>
             <div class="d-grid gap-2">
-                <input type="submit" name="konfirmasi" value="Ganti Password" class="btn btn-secondary btn-sm" type="button">
+                <input type="submit" name="konfirmasi" value="Lanjutkan" class="btn btn-secondary btn-sm" type="button">
             </div><br>
 
             <div class="d-grid gap-2">
